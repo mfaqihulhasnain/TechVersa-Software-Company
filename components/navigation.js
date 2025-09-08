@@ -20,6 +20,19 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const navItems = [
     { name: "Services", href: "#services" },
     { name: "Solutions", href: "#solutions" },
@@ -70,7 +83,7 @@ const Navigation = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed top-0 left-0 right-0 h-20 bg-gradient-to-b from-background/60 via-background/40 to-transparent backdrop-blur-xl z-40"
+            className="fixed top-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-b from-background/60 via-background/40 to-transparent backdrop-blur-xl z-40"
           />
         )}
       </AnimatePresence>
@@ -95,10 +108,10 @@ const Navigation = () => {
           />
         )}
 
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            {/* Enhanced Logo */}
-            <Link href="/" className="flex items-center space-x-3">
+        <div className="container mx-auto px-3 md:px-4">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* Enhanced Logo - Mobile Optimized */}
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
               <motion.div
                 whileHover={{ 
                   scale: 1.1,
@@ -111,10 +124,10 @@ const Navigation = () => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 rounded-xl blur-sm opacity-70"
+                  className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 rounded-lg md:rounded-xl blur-sm opacity-70"
                 />
-                <div className="relative bg-background/80 backdrop-blur-sm rounded-xl p-2 border border-primary/20">
-                  <Sparkles className="w-6 h-6 text-primary" />
+                <div className="relative bg-background/80 backdrop-blur-sm rounded-lg md:rounded-xl p-1.5 md:p-2 border border-primary/20">
+                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
               </motion.div>
               
@@ -123,7 +136,7 @@ const Navigation = () => {
                 initial="initial"
                 animate="animate"
                 whileHover={{ scale: 1.05 }}
-                className="text-3xl font-bold font-display"
+                className="text-xl md:text-3xl font-bold font-display"
                 style={{
                   background: "linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef)",
                   backgroundClip: "text",
@@ -136,7 +149,7 @@ const Navigation = () => {
               </motion.div>
             </Link>
 
-            {/* Enhanced Desktop Navigation */}
+            {/* Desktop Navigation - Unchanged */}
             <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <motion.div
@@ -154,13 +167,11 @@ const Navigation = () => {
                     whileTap={{ scale: 0.95 }}
                     className="relative px-4 py-2 text-foreground/80 hover:text-foreground transition-all duration-300 font-medium rounded-lg group"
                   >
-                    {/* Hover background effect */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-primary/10 via-purple-500/10 to-pink-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       layoutId="navHover"
                     />
                     
-                    {/* Active indicator */}
                     {hoveredItem === item.name && (
                       <motion.div
                         layoutId="activeNav"
@@ -171,7 +182,6 @@ const Navigation = () => {
                     
                     <span className="relative z-10">{item.name}</span>
                     
-                    {/* Underline effect */}
                     <motion.div
                       className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-purple-500 group-hover:w-full group-hover:left-0 transition-all duration-300"
                     />
@@ -180,7 +190,7 @@ const Navigation = () => {
               ))}
             </div>
 
-            {/* Enhanced CTA Button */}
+            {/* Desktop CTA Button */}
             <div className="hidden md:flex items-center space-x-4">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -190,7 +200,6 @@ const Navigation = () => {
                 whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                {/* Animated background */}
                 <motion.div
                   className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
                   animate={{
@@ -220,109 +229,126 @@ const Navigation = () => {
               </motion.div>
             </div>
 
-            {/* Enhanced Mobile Menu Button */}
+            {/* Mobile Menu Button - Improved */}
             <motion.button
               initial={{ opacity: 0, rotate: -90 }}
               animate={{ opacity: 1, rotate: 0 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative p-3 rounded-xl hover:bg-accent/50 transition-all duration-300 group z-50"
+              className="md:hidden relative p-2 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation"
               aria-label="Toggle mobile menu"
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
               <motion.div
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="relative z-10"
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                {isOpen ? <X size={22} /> : <Menu size={22} />}
               </motion.div>
             </motion.button>
           </div>
         </div>
 
-        {/* Mobile Menu Backdrop */}
+        {/* Full Screen Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
-              onClick={() => setIsOpen(false)}
-            />
-          )}
-        </AnimatePresence>
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-md z-30"
+                onClick={() => setIsOpen(false)}
+              />
 
-        {/* Enhanced Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="md:hidden bg-background/95 backdrop-blur-xl border border-gradient shadow-2xl fixed top-20 left-4 right-4 z-40 rounded-2xl max-h-[calc(100vh-6rem)] overflow-y-auto"
-            >
-              <div className="p-4">
-                <motion.div className="space-y-1">
-                  {navItems.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.3 }}
-                      className="relative overflow-hidden rounded-lg"
-                    >
-                      <motion.button
-                        onClick={() => handleNavClick(item.href)}
-                        whileHover={{ x: 5, scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                        className="block w-full text-left text-foreground/80 hover:text-foreground transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-purple-500/5 border border-transparent hover:border-primary/20 group"
+              {/* Menu Panel */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto"
+              >
+                <div className="p-6">
+                  {/* Navigation Items */}
+                  <motion.div className="space-y-3 mb-8">
+                    {navItems.map((item, index) => (
+                      <motion.div
+                        key={item.name}
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.08, duration: 0.4 }}
+                        className="relative"
                       >
-                        <motion.div
-                          className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 group-hover:h-full group-hover:top-0 transition-all duration-300 rounded-r"
-                        />
-                        <span className="relative z-10 ml-3">{item.name}</span>
-                      </motion.button>
-                    </motion.div>
-                  ))}
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                  className="pt-4 mt-4 border-t border-gradient"
-                >
-                  <div className="relative group">
+                        <motion.button
+                          onClick={() => handleNavClick(item.href)}
+                          whileHover={{ x: 8, scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="block w-full text-left text-foreground/90 hover:text-foreground transition-all duration-300 font-medium py-4 px-5 rounded-xl hover:bg-gradient-to-r hover:from-primary/8 hover:to-purple-500/8 border border-transparent hover:border-primary/20 group text-lg"
+                        >
+                          <motion.div
+                            className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 rounded-r group-hover:h-3/4 group-hover:top-1/8 transition-all duration-300"
+                          />
+                          <span className="relative z-10 ml-2">{item.name}</span>
+                        </motion.button>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  
+                  {/* Mobile CTA Button */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.4 }}
+                    className="space-y-4"
+                  >
+                    <div className="relative group">
+                      <motion.div
+                        className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
+                        animate={{
+                          background: [
+                            "linear-gradient(45deg, #6366f1, #8b5cf6, #d946ef)",
+                            "linear-gradient(45deg, #8b5cf6, #d946ef, #f97316)",
+                            "linear-gradient(45deg, #d946ef, #f97316, #6366f1)"
+                          ]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      />
+                      <Button
+                        asChild
+                        className="relative w-full bg-background hover:bg-background/95 text-foreground border-0 font-semibold py-4 text-lg rounded-xl backdrop-blur-sm group-hover:shadow-xl group-hover:shadow-purple-500/25 transition-all duration-300"
+                      >
+                        <Link href="/contact" className="flex items-center justify-center space-x-3">
+                          <span>Get a Quote</span>
+                          <motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            <Sparkles className="w-5 h-5" />
+                          </motion.div>
+                        </Link>
+                      </Button>
+                    </div>
+
+                    {/* Contact Info */}
                     <motion.div
-                      className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
-                      animate={{
-                        background: [
-                          "linear-gradient(45deg, #6366f1, #8b5cf6, #d946ef)",
-                          "linear-gradient(45deg, #8b5cf6, #d946ef, #f97316)",
-                          "linear-gradient(45deg, #d946ef, #f97316, #6366f1)"
-                        ]
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    />
-                    <Button
-                      asChild
-                      className="relative w-full bg-black/90 hover:bg-black/95 text-white border-0 font-semibold py-2.5 rounded-lg backdrop-blur-sm group-hover:shadow-xl group-hover:shadow-purple-500/25 transition-all duration-300"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8, duration: 0.4 }}
+                      className="text-center pt-6 border-t border-gradient/20"
                     >
-                      <Link href="/contact" className="flex items-center justify-center space-x-2">
-                        <span>Get a Quote</span>
-                        <Sparkles className="w-4 h-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
+                      <p className="text-sm text-foreground/60 mb-2">Ready to start your project?</p>
+                      <p className="text-xs text-foreground/40">Get in touch for a free consultation</p>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </motion.nav>

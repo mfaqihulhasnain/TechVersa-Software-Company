@@ -235,7 +235,7 @@ const Navigation = () => {
               animate={{ opacity: 1, rotate: 0 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative p-2 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation"
+              className="md:hidden relative p-3 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation"
               aria-label="Toggle mobile menu"
             >
               <motion.div
@@ -272,8 +272,8 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="md:hidden fixed inset-x-0 top-14 sm:top-16 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto overscroll-contain"
-                style={{ maxHeight: 'calc(100vh - 3.5rem)' }}
+                className="md:hidden fixed inset-x-0 top-16 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto overscroll-contain"
+                style={{ maxHeight: 'calc(100vh - 4rem)', minHeight: 'calc(100vh - 4rem)' }}
               >
                 <div className="min-h-full flex flex-col justify-between p-4 pb-safe">
                   {/* Navigation Items */}
@@ -290,7 +290,7 @@ const Navigation = () => {
                           onClick={() => handleNavClick(item.href)}
                           whileHover={{ x: 4, scale: 1.01 }}
                           whileTap={{ scale: 0.98 }}
-                          className="block w-full text-left text-foreground/90 hover:text-foreground transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-primary/8 hover:to-purple-500/8 border border-transparent hover:border-primary/20 group text-base"
+                          className="block w-full text-left text-foreground/90 hover:text-foreground transition-all duration-300 font-medium py-4 px-4 rounded-lg hover:bg-gradient-to-r hover:from-primary/8 hover:to-purple-500/8 border border-transparent hover:border-primary/20 group text-base"
                         >
                           <motion.div
                             className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 rounded-r group-hover:h-1/2 group-hover:top-1/4 transition-all duration-300"

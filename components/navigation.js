@@ -268,13 +268,13 @@ const Navigation = () => {
 
               {/* Menu Panel */}
               <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, x: "100%" }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: "100%" }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="md:hidden fixed top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto pt-16"
+                className="md:hidden fixed top-0 right-0 bottom-0 w-full max-w-sm bg-background/95 backdrop-blur-xl z-40 overflow-y-auto shadow-2xl"
               >
-                <div className="p-6">
+                <div className="w-full px-4 py-6 pt-20">
                   {/* Navigation Items */}
                   <motion.div className="space-y-3 mb-8">
                     {navItems.map((item, index) => (

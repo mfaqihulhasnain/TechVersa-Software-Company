@@ -33,6 +33,7 @@ body {
   color: var(--foreground);
   font-family: 'Inter', system-ui, sans-serif;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Custom scrollbar */
@@ -116,4 +117,18 @@ select option {
 select option:hover {
   background-color: var(--accent) !important;
   color: var(--accent-foreground) !important;
+}
+
+/* Mobile viewport fixes */
+html {
+  overflow-x: hidden;
+}
+
+/* Ensure mobile menu stays within viewport */
+@media (max-width: 767px) {
+  body {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+  }
 }

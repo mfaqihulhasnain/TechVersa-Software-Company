@@ -251,7 +251,7 @@ const Navigation = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
+              className="md:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
               onClick={() => setIsOpen(false)}
             />
           )}
@@ -261,46 +261,46 @@ const Navigation = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0, y: -20 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -20 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="md:hidden bg-background/95 backdrop-blur-xl border-b border-gradient shadow-2xl fixed top-20 left-0 right-0 z-40"
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="md:hidden bg-background/95 backdrop-blur-xl border border-gradient shadow-2xl fixed top-20 left-4 right-4 z-40 rounded-2xl max-h-[calc(100vh-6rem)] overflow-y-auto"
             >
-              <div className="container mx-auto px-4 py-6">
-                <motion.div className="space-y-2">
+              <div className="p-4">
+                <motion.div className="space-y-1">
                   {navItems.map((item, index) => (
                     <motion.div
                       key={item.name}
-                      initial={{ opacity: 0, x: -50 }}
+                      initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.4 }}
-                      className="relative overflow-hidden rounded-xl"
+                      transition={{ delay: index * 0.05, duration: 0.3 }}
+                      className="relative overflow-hidden rounded-lg"
                     >
                       <motion.button
                         onClick={() => handleNavClick(item.href)}
-                        whileHover={{ x: 10, scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="block w-full text-left text-foreground/80 hover:text-foreground transition-all duration-300 font-medium py-4 px-4 rounded-xl hover:bg-gradient-to-r hover:from-primary/5 hover:to-purple-500/5 border border-transparent hover:border-primary/20 group"
+                        whileHover={{ x: 5, scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className="block w-full text-left text-foreground/80 hover:text-foreground transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-purple-500/5 border border-transparent hover:border-primary/20 group"
                       >
                         <motion.div
                           className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 group-hover:h-full group-hover:top-0 transition-all duration-300 rounded-r"
                         />
-                        <span className="relative z-10 ml-2">{item.name}</span>
+                        <span className="relative z-10 ml-3">{item.name}</span>
                       </motion.button>
                     </motion.div>
                   ))}
                 </motion.div>
                 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.4 }}
-                  className="pt-6 mt-6 border-t border-gradient"
+                  transition={{ delay: 0.4, duration: 0.3 }}
+                  className="pt-4 mt-4 border-t border-gradient"
                 >
                   <div className="relative group">
                     <motion.div
-                      className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-xl opacity-70 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
+                      className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
                       animate={{
                         background: [
                           "linear-gradient(45deg, #6366f1, #8b5cf6, #d946ef)",
@@ -312,7 +312,7 @@ const Navigation = () => {
                     />
                     <Button
                       asChild
-                      className="relative w-full bg-black/90 hover:bg-black/95 text-white border-0 font-semibold py-3 rounded-xl backdrop-blur-sm group-hover:shadow-xl group-hover:shadow-purple-500/25 transition-all duration-300"
+                      className="relative w-full bg-black/90 hover:bg-black/95 text-white border-0 font-semibold py-2.5 rounded-lg backdrop-blur-sm group-hover:shadow-xl group-hover:shadow-purple-500/25 transition-all duration-300"
                     >
                       <Link href="/contact" className="flex items-center justify-center space-x-2">
                         <span>Get a Quote</span>

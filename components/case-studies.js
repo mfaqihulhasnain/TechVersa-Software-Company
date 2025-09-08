@@ -931,7 +931,7 @@ const CaseStudies = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-            {Array.from({ length: 12 }, (_, i) => (
+            {Array.from({ length: 6 }, (_, i) => (
               <motion.div
                 key={i}
                 className="aspect-square bg-gradient-to-br from-slate-800/40 to-slate-900/40 border border-slate-700/30 rounded-2xl overflow-hidden group hover:border-purple-400/50 transition-all duration-500 cursor-pointer relative"

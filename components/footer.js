@@ -77,7 +77,7 @@ const Footer = () => {
                 </Link>
                 
                 <p className="text-tv-muted mb-6 max-w-md leading-relaxed">
-                  We're a full‑stack team crafting reliable products with modern web, cloud, and AI—on time and on budget.
+                  We&apos;re a full‑stack team crafting reliable products with modern web, cloud, and AI—on time and on budget.
                 </p>
 
                 {/* Contact Info */}

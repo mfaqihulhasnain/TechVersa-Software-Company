@@ -580,8 +580,8 @@ const Process = () => {
               </h3>
               
               <p className="text-slate-400 mb-4 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
-                Join <span className="font-bold text-blue-400">500+ successful clients</span> who've transformed their businesses with our proven process. 
-                Let's start with a <span className="font-bold text-purple-400">free discovery session</span> to map your path to success.
+                Join <span className="font-bold text-blue-400">500+ successful clients</span> who&apos;ve transformed their businesses with our proven process. 
+                Let&apos;s start with a <span className="font-bold text-purple-400">free discovery session</span> to map your path to success.
               </p>
 
               {/* Enhanced Stats Row */}

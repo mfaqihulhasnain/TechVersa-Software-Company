@@ -475,7 +475,7 @@ const Solutions = () => {
             transition={{ duration: 1, delay: 0.5 }}
             className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed "
           >
-            Specialized solutions tailored to your industry's unique challenges and opportunities
+            Specialized solutions tailored to your industry&apos;s unique challenges and opportunities
           </motion.p>
           
           <motion.div 
@@ -836,7 +836,7 @@ const Solutions = () => {
                 transition={{ delay: 0.2 }}
               >
                 <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent">
-                  Don't see your
+                  Don&apos;t see your
                 </span>
                 <br />
                 <span className="text-white">industry?</span>
@@ -848,7 +848,7 @@ const Solutions = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Every industry tells a different story. Let's craft a custom solution that aligns perfectly with your industry's unique challenges, regulations, and growth opportunities.
+                Every industry tells a different story. Let&apos;s craft a custom solution that aligns perfectly with your industry&apos;s unique challenges, regulations, and growth opportunities.
               </motion.p>
               
               <motion.div

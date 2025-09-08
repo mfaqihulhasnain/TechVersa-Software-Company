@@ -38,7 +38,7 @@ const FAQ = () => {
     {
       id: "technology",
       question: "Can you work with our existing technology stack?",
-      answer: "Absolutely! We're experienced with a wide range of technologies and can integrate with your existing systems. We can also recommend modern alternatives if they would better serve your project goals. Our team stays current with the latest technologies and best practices."
+      answer: "Absolutely! We&apos;re experienced with a wide range of technologies and can integrate with your existing systems. We can also recommend modern alternatives if they would better serve your project goals. Our team stays current with the latest technologies and best practices."
     },
     {
       id: "scalability",

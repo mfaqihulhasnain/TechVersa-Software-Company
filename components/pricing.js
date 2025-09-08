@@ -659,7 +659,7 @@ const Pricing = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                Every project tells a different story. Let's craft a custom engagement model that aligns perfectly with your vision, timeline, and budget constraints.
+                Every project tells a different story. Let&apos;s craft a custom engagement model that aligns perfectly with your vision, timeline, and budget constraints.
               </motion.p>
               
               <motion.div 

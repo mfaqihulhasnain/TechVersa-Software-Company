@@ -326,7 +326,7 @@ const Services = () => {
               </h3>
               
               <p className="text-tv-muted mb-4 text-sm">
-                Let's collaborate to build something extraordinary together
+                Let&apos;s collaborate to build something extraordinary together
               </p>
               
               <motion.button
@@ -339,7 +339,7 @@ const Services = () => {
                 onClick={() => window.location.href = '/contact'}
               >
                 <span className="relative z-10 flex items-center">
-                  Let's Discuss Your Project
+                  Let&apos;s Discuss Your Project
                   <motion.div
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}

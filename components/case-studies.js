@@ -667,7 +667,7 @@ const CaseStudies = () => {
                       transition={{ delay: 0.3 }}
                     >
                       <div className="relative">
-                        <div className="absolute -left-1 -top-1 text-lg text-purple-400/20 font-serif">"</div>
+                        <div className="absolute -left-1 -top-1 text-lg text-purple-400/20 font-serif">&ldquo;</div>
                         <p className="text-gray-300 italic text-xs leading-relaxed pl-3">
                           {study.testimonial}
                         </p>
@@ -818,7 +818,7 @@ const CaseStudies = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Let's discuss how we can help you achieve similar results and transform your business with innovative, scalable solutions that drive real impact.
+                Let&apos;s discuss how we can help you achieve similar results and transform your business with innovative, scalable solutions that drive real impact.
               </motion.p>
               
               <motion.div

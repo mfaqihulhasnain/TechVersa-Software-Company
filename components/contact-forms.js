@@ -46,7 +46,7 @@ export default function ContactForms() {
     "$15,000 - $50,000", 
     "$50,000 - $100,000",
     "$100,000+",
-    "Let's discuss"
+    "Let&apos;s discuss"
   ];
 
   const projectTypes = [

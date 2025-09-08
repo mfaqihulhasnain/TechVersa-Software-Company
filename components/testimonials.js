@@ -83,7 +83,7 @@ const Testimonials = () => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   const slideVariants = {
     enter: (direction) => ({
@@ -168,7 +168,7 @@ const Testimonials = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
-            Don't just take our word for it. Here's what our clients have to say about working with us.
+            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about working with us.
           </motion.p>
         </motion.div>
 
@@ -241,7 +241,7 @@ const Testimonials = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                       >
-                        "{testimonials[currentIndex].quote}"
+                        &ldquo;{testimonials[currentIndex].quote}&rdquo;
                       </motion.blockquote>
 
                       {/* Author Info with Enhanced Design */}

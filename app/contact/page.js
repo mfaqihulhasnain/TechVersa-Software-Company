@@ -258,7 +258,7 @@ export default function ContactPage() {
                   transition={{ duration: 0.2 }}
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>Let's build something extraordinary together</span>
+                  <span>Let&apos;s build something extraordinary together</span>
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 </motion.div>
               </motion.div>
@@ -322,7 +322,7 @@ export default function ContactPage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.1, duration: 0.8 }}
                   >
-                    Let's discuss your project
+                    Let&apos;s discuss your project
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0 }}

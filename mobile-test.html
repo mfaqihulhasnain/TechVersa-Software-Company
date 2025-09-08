@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Navigation Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #050512;
+            color: #f7fafa;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #4e466a;
+            border-radius: 8px;
+        }
+        .breakpoint-info {
+            background: #1f192e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .mobile-only {
+            display: block;
+        }
+        .desktop-only {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .mobile-only {
+                display: none;
+            }
+            .desktop-only {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Mobile Navigation Test</h1>
+        
+        <div class="test-section">
+            <h2>Current Viewport</h2>
+            <div class="breakpoint-info">
+                <p><strong>Screen Width:</strong> <span id="screen-width"></span>px</p>
+                <p><strong>Device Type:</strong> <span id="device-type"></span></p>
+                <p><strong>Mobile Menu Should:</strong> <span id="menu-status"></span></p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Navigation Visibility</h2>
+            <div class="mobile-only">
+                <p>✅ You're on mobile view - the hamburger menu should be visible in the top-right corner</p>
+                <p>🔍 Look for the hamburger menu (☰) icon in the navigation bar</p>
+            </div>
+            <div class="desktop-only">
+                <p>🖥️ You're on desktop view - you should see the full navigation menu</p>
+                <p>📱 Resize your browser window to mobile size to test the mobile menu</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Testing Steps</h2>
+            <ol>
+                <li>Make sure your browser window is narrow (less than 768px wide)</li>
+                <li>Look for the hamburger menu icon (☰) in the top-right corner</li>
+                <li>Click the hamburger menu to open the mobile navigation</li>
+                <li>The menu should slide down with all navigation items</li>
+                <li>Click outside the menu or the X button to close it</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>If Mobile Menu is Not Visible</h2>
+            <ul>
+                <li>Check if your browser window is narrow enough (&lt; 768px)</li>
+                <li>Try refreshing the page</li>
+                <li>Check browser developer tools for any console errors</li>
+                <li>Make sure JavaScript is enabled</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const deviceType = width < 768 ? 'Mobile' : 'Desktop';
+            const menuStatus = width < 768 ? 'Be Visible (Hamburger Menu)' : 'Be Hidden (Full Menu)';
+            
+            document.getElementById('screen-width').textContent = width;
+            document.getElementById('device-type').textContent = deviceType;
+            document.getElementById('menu-status').textContent = menuStatus;
+        }
+
+        updateViewportInfo();
+        window.addEventListener('resize', updateViewportInfo);
+    </script>
+</body>
+</html>

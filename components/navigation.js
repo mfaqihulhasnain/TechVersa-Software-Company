@@ -226,7 +226,8 @@ const Navigation = () => {
               animate={{ opacity: 1, rotate: 0 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative p-3 rounded-xl hover:bg-accent/50 transition-all duration-300 group"
+              className="md:hidden relative p-3 rounded-xl hover:bg-accent/50 transition-all duration-300 group z-50"
+              aria-label="Toggle mobile menu"
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -242,6 +243,20 @@ const Navigation = () => {
           </div>
         </div>
 
+        {/* Mobile Menu Backdrop */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
+              onClick={() => setIsOpen(false)}
+            />
+          )}
+        </AnimatePresence>
+
         {/* Enhanced Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
@@ -250,7 +265,7 @@ const Navigation = () => {
               animate={{ opacity: 1, height: "auto", y: 0 }}
               exit={{ opacity: 0, height: 0, y: -20 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="md:hidden bg-background/95 backdrop-blur-xl border-b border-gradient shadow-2xl"
+              className="md:hidden bg-background/95 backdrop-blur-xl border-b border-gradient shadow-2xl fixed top-20 left-0 right-0 z-40"
             >
               <div className="container mx-auto px-4 py-6">
                 <motion.div className="space-y-2">

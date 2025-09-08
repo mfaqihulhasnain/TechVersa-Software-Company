@@ -272,12 +272,11 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="md:hidden fixed inset-x-0 top-16 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto overscroll-contain"
-                style={{ maxHeight: 'calc(100vh - 4rem)' }}
+                className="md:hidden fixed top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto pt-16"
               >
-                <div className="min-h-full flex flex-col justify-between p-4 pb-safe">
+                <div className="p-6">
                   {/* Navigation Items */}
-                  <motion.div className="space-y-2 flex-1">
+                  <motion.div className="space-y-3 mb-8">
                     {navItems.map((item, index) => (
                       <motion.div
                         key={item.name}
@@ -288,12 +287,12 @@ const Navigation = () => {
                       >
                         <motion.button
                           onClick={() => handleNavClick(item.href)}
-                          whileHover={{ x: 4, scale: 1.01 }}
+                          whileHover={{ x: 8, scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="block w-full text-left text-foreground/90 hover:text-foreground transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-gradient-to-r hover:from-primary/8 hover:to-purple-500/8 border border-transparent hover:border-primary/20 group text-base"
+                          className="block w-full text-left text-foreground/90 hover:text-foreground transition-all duration-300 font-medium py-4 px-5 rounded-xl hover:bg-gradient-to-r hover:from-primary/8 hover:to-purple-500/8 border border-transparent hover:border-primary/20 group text-lg"
                         >
                           <motion.div
-                            className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 rounded-r group-hover:h-1/2 group-hover:top-1/4 transition-all duration-300"
+                            className="absolute left-0 top-1/2 w-1 h-0 bg-gradient-to-b from-primary to-purple-500 rounded-r group-hover:h-3/4 group-hover:top-1/8 transition-all duration-300"
                           />
                           <span className="relative z-10 ml-2">{item.name}</span>
                         </motion.button>
@@ -301,16 +300,16 @@ const Navigation = () => {
                     ))}
                   </motion.div>
                   
-                  {/* Mobile CTA Button - Fixed at bottom */}
+                  {/* Mobile CTA Button */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.4 }}
-                    className="space-y-3 pt-4 border-t border-gradient/20 mt-6"
+                    className="space-y-4"
                   >
                     <div className="relative group">
                       <motion.div
-                        className="absolute -inset-0.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-lg opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
+                        className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
                         animate={{
                           background: [
                             "linear-gradient(45deg, #6366f1, #8b5cf6, #d946ef)",
@@ -322,15 +321,15 @@ const Navigation = () => {
                       />
                       <Button
                         asChild
-                        className="relative w-full bg-background hover:bg-background/95 text-foreground border-0 font-semibold py-3 text-base rounded-lg backdrop-blur-sm group-hover:shadow-lg transition-all duration-300"
+                        className="relative w-full bg-background hover:bg-background/95 text-foreground border-0 font-semibold py-4 text-lg rounded-xl backdrop-blur-sm group-hover:shadow-xl group-hover:shadow-purple-500/25 transition-all duration-300"
                       >
-                        <Link href="/contact" className="flex items-center justify-center space-x-2">
+                        <Link href="/contact" className="flex items-center justify-center space-x-3">
                           <span>Get a Quote</span>
                           <motion.div
-                            animate={{ x: [0, 3, 0] }}
+                            animate={{ x: [0, 5, 0] }}
                             transition={{ duration: 2, repeat: Infinity }}
                           >
-                            <Sparkles className="w-4 h-4" />
+                            <Sparkles className="w-5 h-5" />
                           </motion.div>
                         </Link>
                       </Button>
@@ -341,9 +340,9 @@ const Navigation = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8, duration: 0.4 }}
-                      className="text-center pt-3"
+                      className="text-center pt-6 border-t border-gradient/20"
                     >
-                      <p className="text-xs text-foreground/60 mb-1">Ready to start your project?</p>
+                      <p className="text-sm text-foreground/60 mb-2">Ready to start your project?</p>
                       <p className="text-xs text-foreground/40">Get in touch for a free consultation</p>
                     </motion.div>
                   </motion.div>

@@ -131,14 +131,4 @@ html {
     width: 100%;
     max-width: 100vw;
   }
-  
-  /* Prevent any elements from extending beyond viewport */
-  * {
-    max-width: 100vw;
-  }
-  
-  /* Ensure fixed positioned elements stay within bounds */
-  .fixed {
-    max-width: 100vw;
-  }
 }

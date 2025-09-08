@@ -81,7 +81,7 @@ const Navigation = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-background/70 backdrop-blur-lg border-b border-border/20 shadow-2xl shadow-primary/10"
+            ? "bg-background/70 backdrop-blur-lg border-b border-gradient shadow-2xl shadow-primary/10"
             : "bg-transparent"
         }`}
       >
@@ -91,7 +91,7 @@ const Navigation = () => {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent"
+            className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
           />
         )}
 
@@ -265,7 +265,7 @@ const Navigation = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="md:hidden bg-background/95 backdrop-blur-xl border border-border/20 shadow-2xl fixed top-20 left-4 right-4 z-40 rounded-2xl max-h-[calc(100vh-6rem)] overflow-y-auto max-w-[calc(100vw-2rem)]"
+              className="md:hidden bg-background/95 backdrop-blur-xl border border-gradient shadow-2xl fixed top-20 left-4 right-4 z-40 rounded-2xl max-h-[calc(100vh-6rem)] overflow-y-auto"
             >
               <div className="p-4">
                 <motion.div className="space-y-1">
@@ -296,7 +296,7 @@ const Navigation = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.3 }}
-                  className="pt-4 mt-4 border-t border-border/20"
+                  className="pt-4 mt-4 border-t border-gradient"
                 >
                   <div className="relative group">
                     <motion.div

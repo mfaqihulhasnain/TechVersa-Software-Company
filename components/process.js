@@ -667,40 +667,82 @@ const Process = () => {
           </div>
         </motion.div>
 
-        {/* Process Flow Visualization */}
+      {/* Process Flow Visualization */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+  transition={{ duration: 1, delay: 2 }}
+  className="mt-20 text-center px-4"
+>
+  <h4 className="text-xl md:text-2xl font-bold text-slate-100 mb-8 md:mb-12">
+    Project Timeline Visualization
+  </h4>
+  
+  {/* Desktop Timeline */}
+  <div className="hidden md:block relative max-w-4xl mx-auto">
+    {/* Timeline Background */}
+    <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-indigo-400/30 rounded-full transform -translate-y-1/2"></div>
+    
+    {/* Timeline Steps */}
+    <div className="flex justify-between items-center relative">
+      {steps.map((step, index) => (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="mt-20 text-center"
+          key={step.id}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 2.2 + index * 0.2, type: "spring" }}
+          className="relative flex flex-col items-center"
         >
-          <h4 className="text-2xl font-bold text-slate-100 mb-8">Project Timeline Visualization</h4>
-          <div className="relative max-w-4xl mx-auto">
-            {/* Timeline Background */}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400/30 via-purple-400/30 to-indigo-400/30 rounded-full transform -translate-y-1/2"></div>
-            
-            {/* Timeline Steps */}
-            <div className="flex justify-between items-center relative">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.id}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 2.2 + index * 0.2, type: "spring" }}
-                  className="relative flex flex-col items-center"
-                >
-                  <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg z-10 border-2 border-slate-900`}>
-                    <step.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="absolute -bottom-20 text-center">
-                    <div className="text-sm font-semibold text-slate-200 mb-1">{step.title}</div>
-                    <div className="text-xs text-slate-400">{step.duration}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg z-10 border-2 border-slate-900`}>
+            <step.icon className="w-6 h-6 text-white" />
+          </div>
+          <div className="absolute -bottom-20 text-center">
+            <div className="text-sm font-semibold text-slate-200 mb-1">{step.title}</div>
+            <div className="text-xs text-slate-400">{step.duration}</div>
           </div>
         </motion.div>
+      ))}
+    </div>
+  </div>
+
+  {/* Mobile Timeline */}
+  <div className="md:hidden space-y-6">
+    {steps.map((step, index) => (
+      <motion.div
+        key={step.id}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 2.2 + index * 0.15, type: "spring" }}
+        className="relative flex items-center gap-4 p-4 rounded-lg bg-slate-800/50 backdrop-blur-sm border border-slate-700/50"
+      >
+        {/* Step Icon */}
+        <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg border-2 border-slate-900 flex-shrink-0`}>
+          <step.icon className="w-7 h-7 text-white" />
+        </div>
+        
+        {/* Step Content */}
+        <div className="flex-1 text-left">
+          <div className="text-base font-semibold text-slate-200 mb-1">
+            {step.title}
+          </div>
+          <div className="text-sm text-slate-400">
+            {step.duration}
+          </div>
+        </div>
+        
+        {/* Step Number */}
+        <div className="text-xs font-bold text-slate-400 bg-slate-700/50 px-2 py-1 rounded-full">
+          {index + 1}
+        </div>
+        
+        {/* Connection Line */}
+        {index < steps.length - 1 && (
+          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-px h-6 bg-gradient-to-b from-slate-600 to-transparent"></div>
+        )}
+      </motion.div>
+    ))}
+  </div>
+</motion.div>
       </div>
     </section>
   );

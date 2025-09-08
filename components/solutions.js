@@ -494,19 +494,19 @@ const Solutions = () => {
         >
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Enhanced Tab List */}
-            <div className="relative mb-20 pb-8">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gradient-to-r from-slate-800/80 to-slate-900/80 border border-slate-700/50 backdrop-blur-xl rounded-3xl p-6 shadow-2xl">
+            <div className="relative mb-20 md:mb-40 pb-8 md:pb-12">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gradient-to-r from-slate-800/80 to-slate-900/80 border border-slate-700/50 backdrop-blur-xl rounded-3xl p-6 md:p-6 shadow-2xl gap-6 md:gap-2">
                 {industries.map((industry, index) => (
                   <motion.div key={industry.id} variants={itemVariants}>
                     <TabsTrigger
                       value={industry.id}
-                      className="relative flex flex-col items-center gap-4 p-6 rounded-2xl transition-all duration-500 data-[state=active]:bg-gradient-to-br data-[state=active]:from-slate-700/60 data-[state=active]:to-slate-800/60 data-[state=active]:shadow-xl hover:bg-slate-700/30 group"
+                      className="relative flex flex-col items-center gap-3 md:gap-4 p-3 md:p-6 rounded-2xl transition-all duration-500 data-[state=active]:bg-gradient-to-br data-[state=active]:from-slate-700/60 data-[state=active]:to-slate-800/60 data-[state=active]:shadow-xl hover:bg-slate-700/30 group w-full h-full min-h-[120px] md:min-h-[140px]"
                     >
                       {/* Enhanced Icon Container */}
                       <motion.div
                         whileHover={{ scale: 1.15, rotate: 10 }}
                         whileTap={{ scale: 0.9 }}
-                        className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 relative overflow-hidden z-10 ${
+                        className={`w-8 h-8 md:w-16 md:h-16 rounded-2xl flex items-center justify-center transition-all duration-500 relative overflow-hidden z-10 ${
                           activeTab === industry.id 
                             ? `bg-gradient-to-br ${industry.iconBg} shadow-lg` 
                             : 'bg-slate-700/30 group-hover:bg-slate-600/40'
@@ -515,7 +515,7 @@ const Solutions = () => {
                         {activeTab === industry.id && (
                           <div className={`absolute inset-0 bg-gradient-to-br ${industry.iconBg} blur-lg opacity-50`} />
                         )}
-                        <industry.icon className={`w-8 h-8 transition-all duration-500 relative z-20 ${
+                        <industry.icon className={`w-4 h-4 md:w-8 md:h-8 transition-all duration-500 relative z-20 ${
                           activeTab === industry.id ? 'text-white' : 'text-gray-400 group-hover:text-gray-300'
                         }`} />
                         
@@ -529,7 +529,7 @@ const Solutions = () => {
                         )}
                       </motion.div>
                       
-                      <span className={`text-sm md:text-base font-bold transition-all duration-500 relative z-10 ${
+                      <span className={`text-xs md:text-sm lg:text-base font-bold transition-all duration-500 relative z-10 leading-tight ${
                         activeTab === industry.id 
                           ? 'text-white' 
                           : 'text-gray-400 group-hover:text-gray-300'
@@ -553,17 +553,17 @@ const Solutions = () => {
 
             {/* Enhanced Tab Content */}
             {industries.map((industry) => (
-              <TabsContent key={industry.id} value={industry.id} className="mt-16">
+              <TabsContent key={industry.id} value={industry.id} className="mt-16 md:mt-32">
                 <motion.div
                   key={industry.id}
                   initial={{ opacity: 0, y: 30, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -30, scale: 0.95 }}
                   transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="space-y-20"
+                  className="space-y-20 md:space-y-24"
                 >
                   {/* Enhanced Industry Header */}
-                  <div className="text-center relative mb-16">
+                  <div className="text-center relative mb-16 md:mb-24 pt-0 md:pt-8">
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       className={`inline-flex items-center justify-center w-24 h-24 rounded-3xl mb-10 relative bg-gradient-to-br ${industry.iconBg} backdrop-blur-sm shadow-2xl overflow-hidden`}

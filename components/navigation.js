@@ -16,20 +16,52 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
+    const handleResize = () => {
+      // Handle mobile browser UI changes
+      if (isOpen) {
+        // Recalculate mobile menu height when viewport changes
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, [isOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
     
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -235,7 +267,7 @@ const Navigation = () => {
               animate={{ opacity: 1, rotate: 0 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative p-3 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation"
+              className="md:hidden relative p-3 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-[60] touch-manipulation"
               aria-label="Toggle mobile menu"
             >
               <motion.div
@@ -262,7 +294,7 @@ const Navigation = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-md z-30"
+                className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-md z-40"
                 onClick={() => setIsOpen(false)}
               />
 
@@ -272,8 +304,12 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="md:hidden fixed inset-x-0 top-16 bottom-0 bg-background/95 backdrop-blur-xl z-40 overflow-y-auto overscroll-contain"
-                style={{ maxHeight: 'calc(100vh - 4rem)', minHeight: 'calc(100vh - 4rem)' }}
+                className="md:hidden fixed inset-x-0 top-16 bg-background/95 backdrop-blur-xl z-50 overflow-y-auto overscroll-contain"
+                style={{ 
+                  maxHeight: 'calc(100dvh - 4rem)', 
+                  minHeight: 'calc(100dvh - 4rem)',
+                  height: 'calc(100dvh - 4rem)'
+                }}
               >
                 <div className="min-h-full flex flex-col justify-between p-4 pb-safe">
                   {/* Navigation Items */}

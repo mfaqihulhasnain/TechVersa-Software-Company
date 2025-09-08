@@ -705,40 +705,35 @@ const Process = () => {
     </div>
   </div>
 
-  {/* Mobile Timeline */}
-  <div className="md:hidden space-y-6">
+  {/* Mobile Timeline - 2 Column Grid */}
+  <div className="md:hidden grid grid-cols-2 gap-3 max-w-sm mx-auto">
     {steps.map((step, index) => (
       <motion.div
         key={step.id}
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.2 + index * 0.15, type: "spring" }}
-        className="relative flex items-center gap-4 p-4 rounded-lg bg-slate-800/50 backdrop-blur-sm border border-slate-700/50"
+        className="relative flex flex-col items-center gap-3 p-3 rounded-lg bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 text-center"
       >
         {/* Step Icon */}
-        <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg border-2 border-slate-900 flex-shrink-0`}>
-          <step.icon className="w-7 h-7 text-white" />
+        <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg border-2 border-slate-900 flex-shrink-0`}>
+          <step.icon className="w-6 h-6 text-white" />
         </div>
         
         {/* Step Content */}
-        <div className="flex-1 text-left">
-          <div className="text-base font-semibold text-slate-200 mb-1">
+        <div className="flex-1">
+          <div className="text-sm font-semibold text-slate-200 mb-1 leading-tight">
             {step.title}
           </div>
-          <div className="text-sm text-slate-400">
+          <div className="text-xs text-slate-400">
             {step.duration}
           </div>
         </div>
         
         {/* Step Number */}
-        <div className="text-xs font-bold text-slate-400 bg-slate-700/50 px-2 py-1 rounded-full">
+        <div className="absolute -top-2 -right-2 text-xs font-bold text-slate-300 bg-slate-700 w-5 h-5 rounded-full flex items-center justify-center border border-slate-600">
           {index + 1}
         </div>
-        
-        {/* Connection Line */}
-        {index < steps.length - 1 && (
-          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-px h-6 bg-gradient-to-b from-slate-600 to-transparent"></div>
-        )}
       </motion.div>
     ))}
   </div>

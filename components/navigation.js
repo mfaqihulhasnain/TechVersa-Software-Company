@@ -108,10 +108,10 @@ const Navigation = () => {
           />
         )}
 
-        <div className="container mx-auto px-3 md:px-4">
+        <div className="container mx-auto px-2 md:px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Enhanced Logo - Mobile Optimized */}
-            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+            <Link href="/" className="flex items-center space-x-1 md:space-x-3 flex-shrink-0">
               <motion.div
                 whileHover={{ 
                   scale: 1.1,
@@ -126,8 +126,8 @@ const Navigation = () => {
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 rounded-lg md:rounded-xl blur-sm opacity-70"
                 />
-                <div className="relative bg-background/80 backdrop-blur-sm rounded-lg md:rounded-xl p-1.5 md:p-2 border border-primary/20">
-                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                <div className="relative bg-background/80 backdrop-blur-sm rounded-lg md:rounded-xl p-1 md:p-2 border border-primary/20">
+                  <Sparkles className="w-4 h-4 md:w-6 md:h-6 text-primary" />
                 </div>
               </motion.div>
               
@@ -136,7 +136,7 @@ const Navigation = () => {
                 initial="initial"
                 animate="animate"
                 whileHover={{ scale: 1.05 }}
-                className="text-xl md:text-3xl font-bold font-display"
+                className="text-lg md:text-3xl font-bold font-display"
                 style={{
                   background: "linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef)",
                   backgroundClip: "text",
@@ -235,7 +235,7 @@ const Navigation = () => {
               animate={{ opacity: 1, rotate: 0 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative p-2 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation"
+              className="md:hidden relative p-1.5 rounded-lg hover:bg-accent/50 transition-all duration-300 group z-50 touch-manipulation flex-shrink-0"
               aria-label="Toggle mobile menu"
             >
               <motion.div
@@ -246,7 +246,7 @@ const Navigation = () => {
                 transition={{ duration: 0.3 }}
                 className="relative z-10"
               >
-                {isOpen ? <X size={22} /> : <Menu size={22} />}
+                {isOpen ? <X size={20} /> : <Menu size={20} />}
               </motion.div>
             </motion.button>
           </div>

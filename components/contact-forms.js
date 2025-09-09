@@ -199,7 +199,7 @@ export default function ContactForms() {
           });
           
           // Simulate successful submission
-          setSubmitStatus({ type: 'success', message: 'Message received! We&apos;ll get back to you soon.' });
+          setSubmitStatus({ type: 'success', message: 'Message received! We\'ll get back to you soon.' });
           setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
           return;
         }
@@ -228,7 +228,7 @@ export default function ContactForms() {
       }
 
       setIsSubmitting(false);
-      setSubmitStatus({ type: 'success', message: 'Message sent successfully! We&apos;ll get back to you soon.' });
+      setSubmitStatus({ type: 'success', message: 'Message sent successfully! We\'ll get back to you soon.' });
       setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
       
     } catch (error) {
@@ -285,7 +285,7 @@ export default function ContactForms() {
           });
           
           // Simulate successful submission
-          setSubmitStatus({ type: 'success', message: 'Quote request received! We&apos;ll get back to you soon.' });
+          setSubmitStatus({ type: 'success', message: 'Quote request received! We\'ll get back to you soon.' });
           setQuoteForm({ 
             name: '', 
             email: '', 
@@ -327,7 +327,7 @@ export default function ContactForms() {
       }
 
       setIsSubmitting(false);
-      setSubmitStatus({ type: 'success', message: 'Quote request sent successfully! We&apos;ll get back to you soon.' });
+      setSubmitStatus({ type: 'success', message: 'Quote request sent successfully! We\'ll get back to you soon.' });
       setQuoteForm({ 
         name: '', 
         email: '', 
@@ -480,7 +480,7 @@ export default function ContactForms() {
                     Send us a Message
                   </CardTitle>
                   <CardDescription className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Have a question or want to discuss a project? We&apos;d love to hear from you and help bring your ideas to life.
+                    Have a question or want to discuss a project? We would love to hear from you and help bring your ideas to life.
                   </CardDescription>
                 </motion.div>
               </CardHeader>
@@ -712,7 +712,7 @@ export default function ContactForms() {
                     Request a Quote
                   </CardTitle>
                   <CardDescription className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Ready to start your project? Tell us about your requirements and we&apos;ll provide a detailed, competitive quote tailored to your needs.
+                    Ready to start your project? Tell us about your requirements and we will provide a detailed, competitive quote tailored to your needs.
                   </CardDescription>
                 </motion.div>
               </CardHeader>

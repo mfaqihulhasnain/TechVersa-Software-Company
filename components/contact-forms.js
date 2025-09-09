@@ -186,7 +186,7 @@ export default function ContactForms() {
       formData.append('company', contactForm.company || "Not provided");
       formData.append('message', contactForm.message);
       formData.append('subject', 'New Contact Form Submission - TechVersa');
-      formData.append('to', 'faqihulhasnain572@gmail.com');
+      formData.append('to', 'iulhasnain@gmail.com');
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -262,7 +262,7 @@ export default function ContactForms() {
       formData.append('timeline', quoteForm.timeline);
       formData.append('description', quoteForm.description);
       formData.append('subject', 'New Quote Request - TechVersa');
-      formData.append('to', 'faqihulhasnain572@gmail.com');
+      formData.append('to', 'iulhasnain@gmail.com');
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -966,7 +966,7 @@ export default function ContactForms() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
             </motion.div>
             <h3 className="text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300 mb-4">Email Us</h3>
-            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300 font-medium">faqihulhasnain572@gmail.com</p>
+            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300 font-medium">iulhasnain@gmail.com</p>
           </div>
         </motion.div>
         

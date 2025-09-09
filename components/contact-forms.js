@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -150,13 +149,6 @@ export default function ContactForms() {
     { id: "ps", code: "+970", country: "Palestine", flag: "🇵🇸" }
   ];
 
-  // Initialize EmailJS if keys are available
-  useEffect(() => {
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-    if (publicKey && publicKey !== 'your_public_key_here') {
-      emailjs.init(publicKey);
-    }
-  }, []);
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -164,67 +156,47 @@ export default function ContactForms() {
     setSubmitStatus(null);
     
     try {
-      // Check if EmailJS is configured
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      // Use Web3Forms
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
       
-      if (serviceId && templateId && serviceId !== "your_service_id_here") {
-        // Use EmailJS if configured
+      if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        // Fallback: Log the form data and show success message
         const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
-        const templateParams = {
-          from_name: contactForm.name,
-          from_email: contactForm.email,
+        console.log('Contact Form Submission:', {
+          name: contactForm.name,
+          email: contactForm.email,
           phone: (selectedCountry?.code || '+1') + " " + contactForm.phone,
           company: contactForm.company || "Not provided",
           message: contactForm.message,
-          to_email: "faqihulhasnain572@gmail.com",
-          subject: "New Contact Form Submission - TechVersa"
-        };
-
-        await emailjs.send(serviceId, templateId, templateParams);
-      } else {
-        // Use Web3Forms - much easier than EmailJS!
-        const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-        
-        if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-          // Fallback: Log the form data and show success message
-          const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
-          console.log('Contact Form Submission:', {
-            name: contactForm.name,
-            email: contactForm.email,
-            phone: (selectedCountry?.code || '+1') + " " + contactForm.phone,
-            company: contactForm.company || "Not provided",
-            message: contactForm.message,
-            timestamp: new Date().toISOString()
-          });
-          
-          // Simulate successful submission
-          setSubmitStatus({ type: 'success', message: 'Message received! We\'ll get back to you soon.' });
-          setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
-          return;
-        }
-        
-        const formData = new FormData();
-        formData.append('access_key', accessKey);
-        const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
-        formData.append('name', contactForm.name);
-        formData.append('email', contactForm.email);
-        formData.append('phone', (selectedCountry?.code || '+1') + " " + contactForm.phone);
-        formData.append('company', contactForm.company || "Not provided");
-        formData.append('message', contactForm.message);
-        formData.append('subject', 'New Contact Form Submission - TechVersa');
-        formData.append('to', 'faqihulhasnain572@gmail.com');
-        
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formData
+          timestamp: new Date().toISOString()
         });
         
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error('Failed to send message');
-        }
+        // Simulate successful submission
+        setSubmitStatus({ type: 'success', message: 'Message received! We\'ll get back to you soon.' });
+        setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('access_key', accessKey);
+      const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
+      formData.append('name', contactForm.name);
+      formData.append('email', contactForm.email);
+      formData.append('phone', (selectedCountry?.code || '+1') + " " + contactForm.phone);
+      formData.append('company', contactForm.company || "Not provided");
+      formData.append('message', contactForm.message);
+      formData.append('subject', 'New Contact Form Submission - TechVersa');
+      formData.append('to', 'faqihulhasnain572@gmail.com');
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error('Failed to send message');
       }
 
       setIsSubmitting(false);
@@ -244,86 +216,63 @@ export default function ContactForms() {
     setSubmitStatus(null);
     
     try {
-      // Check if EmailJS is configured
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_QUOTE_TEMPLATE_ID;
+      // Use Web3Forms
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
       
-      if (serviceId && templateId && serviceId !== "your_service_id_here") {
-        // Use EmailJS if configured
+      if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        // Fallback: Log the form data and show success message
         const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
-        const templateParams = {
-          from_name: quoteForm.name,
-          from_email: quoteForm.email,
+        console.log('Quote Request Submission:', {
+          name: quoteForm.name,
+          email: quoteForm.email,
           phone: (selectedCountry?.code || '+1') + " " + quoteForm.phone,
           company: quoteForm.company || "Not provided",
-          project_type: quoteForm.projectType,
-          budget_range: quoteForm.budgetRange,
+          projectType: quoteForm.projectType,
+          budgetRange: quoteForm.budgetRange,
           timeline: quoteForm.timeline,
           description: quoteForm.description,
-          to_email: "faqihulhasnain572@gmail.com",
-          subject: "New Quote Request - TechVersa"
-        };
-
-        await emailjs.send(serviceId, templateId, templateParams);
-      } else {
-        // Use Web3Forms - much easier than EmailJS!
-        const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-        
-        if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-          // Fallback: Log the form data and show success message
-          const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
-          console.log('Quote Request Submission:', {
-            name: quoteForm.name,
-            email: quoteForm.email,
-            phone: (selectedCountry?.code || '+1') + " " + quoteForm.phone,
-            company: quoteForm.company || "Not provided",
-            projectType: quoteForm.projectType,
-            budgetRange: quoteForm.budgetRange,
-            timeline: quoteForm.timeline,
-            description: quoteForm.description,
-            timestamp: new Date().toISOString()
-          });
-          
-          // Simulate successful submission
-          setSubmitStatus({ type: 'success', message: 'Quote request received! We\'ll get back to you soon.' });
-          setQuoteForm({ 
-            name: '', 
-            email: '', 
-            phone: '', 
-            countryId: 'us', 
-            company: '', 
-            projectType: '', 
-            budgetRange: '', 
-            timeline: '', 
-            description: '' 
-          });
-          return;
-        }
-        
-        const formData = new FormData();
-        formData.append('access_key', accessKey);
-        const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
-        formData.append('name', quoteForm.name);
-        formData.append('email', quoteForm.email);
-        formData.append('phone', (selectedCountry?.code || '+1') + " " + quoteForm.phone);
-        formData.append('company', quoteForm.company || "Not provided");
-        formData.append('project_type', quoteForm.projectType);
-        formData.append('budget_range', quoteForm.budgetRange);
-        formData.append('timeline', quoteForm.timeline);
-        formData.append('description', quoteForm.description);
-        formData.append('subject', 'New Quote Request - TechVersa');
-        formData.append('to', 'faqihulhasnain572@gmail.com');
-        
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formData
+          timestamp: new Date().toISOString()
         });
         
-        const result = await response.json();
-        
-        if (!result.success) {
-          throw new Error('Failed to send message');
-        }
+        // Simulate successful submission
+        setSubmitStatus({ type: 'success', message: 'Quote request received! We\'ll get back to you soon.' });
+        setQuoteForm({ 
+          name: '', 
+          email: '', 
+          phone: '', 
+          countryId: 'us', 
+          company: '', 
+          projectType: '', 
+          budgetRange: '', 
+          timeline: '', 
+          description: '' 
+        });
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('access_key', accessKey);
+      const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
+      formData.append('name', quoteForm.name);
+      formData.append('email', quoteForm.email);
+      formData.append('phone', (selectedCountry?.code || '+1') + " " + quoteForm.phone);
+      formData.append('company', quoteForm.company || "Not provided");
+      formData.append('project_type', quoteForm.projectType);
+      formData.append('budget_range', quoteForm.budgetRange);
+      formData.append('timeline', quoteForm.timeline);
+      formData.append('description', quoteForm.description);
+      formData.append('subject', 'New Quote Request - TechVersa');
+      formData.append('to', 'faqihulhasnain572@gmail.com');
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error('Failed to send message');
       }
 
       setIsSubmitting(false);

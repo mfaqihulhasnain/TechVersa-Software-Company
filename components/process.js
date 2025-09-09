@@ -429,7 +429,7 @@ const Process = () => {
                         <div
                           className={`
                           relative w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} 
-                          flex items-center justify-center shadow-xl mx-auto mb-3
+                          flex items-center justify-center shadow-xl mx-auto mb-6 md:mb-3
                           group-hover/number:shadow-2xl transition-all duration-300
                         `}
                         >
@@ -477,12 +477,12 @@ const Process = () => {
                         <div className="absolute inset-0 bg-blue-400/10 rounded-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                       </motion.div>
 
-                      <h3 className="text-lg md:text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300 mb-3 tracking-tight px-2 text-center">
+                      <h3 className="text-lg md:text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300 mb-6 md:mb-3 tracking-tight px-2 text-center">
                         {step.title}
                       </h3>
 
                       {/* Enhanced Meta Information */}
-                      <div className="flex items-center justify-center gap-3 mb-3">
+                      <div className="flex items-center justify-center gap-3 mb-4 md:mb-3">
                         <span className="text-xs text-slate-400 bg-slate-700/50 px-2 py-1 rounded-full font-medium border border-slate-600/30">
                           <Clock className="w-2.5 h-2.5 inline mr-1" />
                           {step.duration}
@@ -495,12 +495,12 @@ const Process = () => {
                     </div>
 
                     {/* Enhanced Description */}
-                    <p className="text-slate-400 mb-4 text-sm leading-relaxed group-hover:text-slate-300 transition-colors duration-300 text-center">
+                    <p className="text-slate-400 mb-6 md:mb-4 text-sm leading-relaxed group-hover:text-slate-300 transition-colors duration-300 text-center">
                       {step.description}
                     </p>
 
                     {/* Enhanced Deliverables Preview */}
-                    <div className="mb-4 p-3 bg-slate-700/50 rounded-xl border border-slate-600/30 group-hover:bg-slate-700/70 transition-all duration-300">
+                    <div className="mb-6 md:mb-4 p-3 bg-slate-700/50 rounded-xl border border-slate-600/30 group-hover:bg-slate-700/70 transition-all duration-300">
                       <h4 className="text-xs font-bold text-slate-200 mb-1 flex items-center justify-center">
                         <Sparkles className="w-3 h-3 text-blue-400 mr-1" />
                         Key Deliverables

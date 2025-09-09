@@ -186,7 +186,6 @@ export default function ContactForms() {
       formData.append('company', contactForm.company || "Not provided");
       formData.append('message', contactForm.message);
       formData.append('subject', 'New Contact Form Submission - TechVersa');
-      formData.append('to', 'iulhasnain@gmail.com');
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -262,7 +261,6 @@ export default function ContactForms() {
       formData.append('timeline', quoteForm.timeline);
       formData.append('description', quoteForm.description);
       formData.append('subject', 'New Quote Request - TechVersa');
-      formData.append('to', 'iulhasnain@gmail.com');
       
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',

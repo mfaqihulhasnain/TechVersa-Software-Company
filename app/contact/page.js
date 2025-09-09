@@ -183,56 +183,6 @@ export default function ContactPage() {
           />
         </div>
 
-       {/* Enhanced Back to Homepage Button for Dark Theme */}
-<div className="relative z-10 pt-24 pb-4">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <Link href="/" className="inline-block">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ duration: 0.2 }}
-        >
-          <Button
-            variant="ghost"
-            className="group relative flex items-center gap-2 
-                       text-gray-300 hover:text-cyan-400 transition-all duration-300
-                       border border-gray-700 hover:border-cyan-400/50
-                       backdrop-blur-md rounded-2xl px-5 py-2.5
-                       shadow-[0_0_10px_rgba(0,0,0,0.6)] hover:shadow-[0_0_20px_rgba(34,211,238,0.5)]
-                       bg-gradient-to-r from-gray-900/60 via-gray-800/60 to-gray-900/60"
-          >
-            {/* Glow Background */}
-            <span className="absolute inset-0 rounded-2xl bg-cyan-500/10 opacity-0 group-hover:opacity-100 blur-lg transition duration-300"></span>
-
-            {/* Icon Animation */}
-            <motion.div
-              whileHover={{ x: -4 }}
-              transition={{ duration: 0.25 }}
-              className="relative z-10 text-cyan-300 group-hover:text-cyan-400"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </motion.div>
-
-
-            
-
-            {/* Text */}
-            <span className="relative z-10 font-medium 
-                             group-hover:tracking-wide group-hover:text-cyan-400
-                             transition-all duration-300">
-              Back to Homepage
-            </span>
-          </Button>
-        </motion.div>
-      </Link>
-    </motion.div>
-  </div>
-</div>
 
 
         {/* Enhanced Header Section */}

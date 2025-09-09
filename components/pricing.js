@@ -728,7 +728,7 @@ const Pricing = () => {
             {
               icon: Shield,
               title: "Risk-Free Guarantee",
-              description: "30-day money-back guarantee on all fixed-scope projects",
+              description: "Quality assurance on all fixed-scope projects",
               color: "from-green-500 to-emerald-500"
             },
             {

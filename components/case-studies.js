@@ -57,7 +57,7 @@ const CaseStudies = () => {
       company: "FinTech Startup",
       description: "Built a comprehensive digital banking platform serving 50,000+ users with real-time transactions, AI-powered fraud detection, and mobile-first design.",
       longDescription: "Revolutionary banking platform that transformed how users interact with their finances through cutting-edge technology and intuitive design.",
-      image: "/images/stock-photo-random-pictures-cute-and-funny-2286554497.jpg",
+      image: "/images/next-gen-banking.jpeg",
       stack: ["React", "Node.js", "PostgreSQL", "AWS", "Docker"],
       results: [
         { metric: "50,000+ active users", icon: Users, color: "text-blue-400" },
@@ -79,7 +79,7 @@ const CaseStudies = () => {
       company: "HealthTech Company",
       description: "Developed an AI system that analyzes medical images with 95% accuracy, reducing diagnosis time by 60% and improving patient outcomes.",
       longDescription: "State-of-the-art machine learning solution that revolutionizes medical diagnostics with unprecedented accuracy and speed.",
-      image: "/images/stock-photo-random-pictures-cute-and-funny-2286554497.jpg",
+      image: "/images/ai-powered-diagnosic-assistant.jpeg",
       stack: ["Python", "TensorFlow", "FastAPI", "MongoDB", "Kubernetes"],
       results: [
         { metric: "95% diagnostic accuracy", icon: BarChart3, color: "text-purple-400" },
@@ -101,7 +101,7 @@ const CaseStudies = () => {
       company: "Retail Enterprise",
       description: "Created a unified e-commerce platform integrating web, mobile, and marketplace channels with advanced personalization and inventory management.",
       longDescription: "Comprehensive e-commerce ecosystem that unifies all sales channels while delivering personalized shopping experiences at scale.",
-      image: "/images/stock-photo-random-pictures-cute-and-funny-2286554497.jpg",
+      image: "/images/multi-channel-ecomerce.jpeg",
       stack: ["Next.js", "Shopify", "Stripe", "Redis", "GCP"],
       results: [
         { metric: "300% increase in sales", icon: TrendingUp, color: "text-green-400" },
@@ -123,7 +123,7 @@ const CaseStudies = () => {
       company: "EdTech Innovator",
       description: "Built a comprehensive learning management system with AI-powered personalization, interactive content, and real-time collaboration tools.",
       longDescription: "Next-generation educational platform that adapts to individual learning styles and promotes collaborative knowledge sharing.",
-      image: "/images/stock-photo-random-pictures-cute-and-funny-2286554497.jpg",
+      image: "/images/learning.jpeg",
       stack: ["Vue.js", "Django", "WebRTC", "PostgreSQL", "AWS"],
       results: [
         { metric: "100,000+ students", icon: Users, color: "text-blue-400" },
@@ -914,6 +914,7 @@ const CaseStudies = () => {
         </motion.div>
 
         {/* Portfolio Showcase */}
+        {/*
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -941,7 +942,6 @@ const CaseStudies = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
               >
-                {/* Portfolio Image */}
                 <Image
                   src="/images/stock-photo-random-pictures-cute-and-funny-2286554497.jpg"
                   alt={`Portfolio Project ${i + 1}`}
@@ -950,10 +950,8 @@ const CaseStudies = () => {
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 16vw, 12vw"
                 />
                 
-                {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 group-hover:from-purple-500/30 group-hover:to-blue-500/30 transition-all duration-300" />
                 
-                {/* Project Label */}
                 <div className="absolute bottom-2 left-2 right-2">
                   <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1">
                     <span className="text-xs text-white font-medium">
@@ -965,6 +963,7 @@ const CaseStudies = () => {
             ))}
           </div>
         </motion.div>
+        */}
       </div>
     </section>
   );

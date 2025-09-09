@@ -494,66 +494,94 @@ const Solutions = () => {
         >
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             {/* Enhanced Tab List */}
-            <div className="relative mb-20 md:mb-40 pb-8 md:pb-12">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-gradient-to-r from-slate-800/80 to-slate-900/80 border border-slate-700/50 backdrop-blur-xl rounded-3xl p-6 md:p-6 shadow-2xl gap-6 md:gap-2">
-                {industries.map((industry, index) => (
-                  <motion.div key={industry.id} variants={itemVariants}>
-                    <TabsTrigger
-                      value={industry.id}
-                      className="relative flex flex-col items-center gap-3 md:gap-4 p-3 md:p-6 rounded-2xl transition-all duration-500 data-[state=active]:bg-gradient-to-br data-[state=active]:from-slate-700/60 data-[state=active]:to-slate-800/60 data-[state=active]:shadow-xl hover:bg-slate-700/30 group w-full h-full min-h-[120px] md:min-h-[140px]"
-                    >
-                      {/* Enhanced Icon Container */}
-                      <motion.div
-                        whileHover={{ scale: 1.15, rotate: 10 }}
-                        whileTap={{ scale: 0.9 }}
-                        className={`w-8 h-8 md:w-16 md:h-16 rounded-2xl flex items-center justify-center transition-all duration-500 relative overflow-hidden z-10 ${
-                          activeTab === industry.id 
-                            ? `bg-gradient-to-br ${industry.iconBg} shadow-lg` 
-                            : 'bg-slate-700/30 group-hover:bg-slate-600/40'
-                        }`}
+            <div className="relative mb-0 pb-0">
+              <div className="bg-gradient-to-r from-slate-800/80 to-slate-900/80 border border-slate-700/50 backdrop-blur-xl rounded-3xl p-4 md:p-6 shadow-2xl">
+                <TabsList className="grid grid-cols-2 md:flex md:flex-row w-full bg-transparent gap-2 h-auto">
+                  {industries.map((industry, index) => (
+                    <motion.div key={industry.id} variants={itemVariants} className="flex-1">
+                      <TabsTrigger
+                        value={industry.id}
+                        className={`
+                          relative flex flex-col items-center gap-2 md:gap-3 p-3 md:p-4 rounded-xl 
+                          transition-all duration-300 w-full min-h-[70px] md:min-h-[100px]
+                          ${activeTab === industry.id 
+                            ? 'bg-gradient-to-br from-slate-700/60 to-slate-800/60 shadow-lg text-white' 
+                            : 'hover:bg-slate-700/30 text-gray-400 hover:text-gray-300'
+                          }
+                        `}
                       >
-                        {activeTab === industry.id && (
-                          <div className={`absolute inset-0 bg-gradient-to-br ${industry.iconBg} blur-lg opacity-50`} />
+                        {/* Enhanced Icon Container for Active Tab */}
+                        {activeTab === industry.id ? (
+                          <motion.div
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            className={`w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300 relative bg-gradient-to-br ${industry.iconBg} shadow-md overflow-hidden`}
+                          >
+                            <industry.icon className="w-4 h-4 md:w-6 md:h-6 text-white drop-shadow-lg relative z-20" />
+                            <div className={`absolute inset-0 bg-gradient-to-r ${industry.color} rounded-lg blur-2xl opacity-40 z-0`} />
+                            
+                            {/* Rotating rings for active tab */}
+                            <motion.div
+                              className="absolute inset-0 border-2 border-white/20 rounded-lg z-10"
+                              animate={{ rotate: [0, 360] }}
+                              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                            />
+                            <motion.div
+                              className="absolute inset-1 border border-white/10 rounded-lg z-10"
+                              animate={{ rotate: [360, 0] }}
+                              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                            />
+                          </motion.div>
+                        ) : (
+                          <div className={`
+                            w-8 h-8 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300
+                            bg-slate-700/40
+                          `}>
+                            <industry.icon className="w-4 h-4 md:w-6 md:h-6" />
+                          </div>
                         )}
-                        <industry.icon className={`w-4 h-4 md:w-8 md:h-8 transition-all duration-500 relative z-20 ${
-                          activeTab === industry.id ? 'text-white' : 'text-gray-400 group-hover:text-gray-300'
-                        }`} />
                         
-                        {/* Animated border for active tab */}
+                        {/* Enhanced Label for Active Tab */}
+                        <span className={`text-xs md:text-sm font-semibold text-center leading-tight transition-all duration-300 ${
+                          activeTab === industry.id 
+                            ? `bg-gradient-to-r ${industry.color} bg-clip-text text-transparent` 
+                            : ''
+                        }`}>
+                          {industry.name}
+                        </span>
+
+                        {/* Enhanced Active Indicator */}
                         {activeTab === industry.id && (
                           <motion.div
-                            className="absolute inset-0 border-2 border-white/20 rounded-2xl"
-                            animate={{ rotate: [0, 360] }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                            layoutId="activeTabIndicator"
+                            className={`absolute inset-0 bg-gradient-to-br ${industry.bgGradient} rounded-xl border border-white/10 shadow-lg`}
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
                           />
                         )}
-                      </motion.div>
-                      
-                      <span className={`text-xs md:text-sm lg:text-base font-bold transition-all duration-500 relative z-10 leading-tight ${
-                        activeTab === industry.id 
-                          ? 'text-white' 
-                          : 'text-gray-400 group-hover:text-gray-300'
-                      }`}>
-                        {industry.name}
-                      </span>
 
-                      {/* Enhanced Active Indicator */}
-                      {activeTab === industry.id && (
-                        <motion.div
-                          layoutId="activeTab"
-                          className={`absolute inset-0 bg-gradient-to-br ${industry.bgGradient} rounded-2xl border border-white/10 z-0`}
-                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        />
-                      )}
-                    </TabsTrigger>
-                  </motion.div>
-                ))}
-              </TabsList>
+                        {/* Glow Effect for Active Tab */}
+                        {activeTab === industry.id && (
+                          <motion.div
+                            className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                            animate={{
+                              boxShadow: [
+                                `0 0 0 0 rgba(59, 130, 246, 0)`,
+                                `0 0 0 2px rgba(59, 130, 246, 0.3)`,
+                                `0 0 0 0 rgba(59, 130, 246, 0)`
+                              ]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          />
+                        )}
+                      </TabsTrigger>
+                    </motion.div>
+                  ))}
+                </TabsList>
+              </div>
             </div>
 
             {/* Enhanced Tab Content */}
             {industries.map((industry) => (
-              <TabsContent key={industry.id} value={industry.id} className="mt-16 md:mt-32">
+              <TabsContent key={industry.id} value={industry.id} className="mt-4 md:mt-6">
                 <motion.div
                   key={industry.id}
                   initial={{ opacity: 0, y: 30, scale: 0.95 }}

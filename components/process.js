@@ -30,11 +30,10 @@ const Process = () => {
   const [expandedStep, setExpandedStep] = useState(null);
   const [hoveredStep, setHoveredStep] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
-  const controls = useAnimation();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 5);
+      setActiveStep((prev) => (prev + 1) % steps.length);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -169,12 +168,12 @@ const Process = () => {
 
   const floatingVariants = {
     animate: {
-      y: [-15, 15, -15],
-      x: [-5, 5, -5],
-      rotate: [0, 5, -5, 0],
-      scale: [1, 1.1, 1],
+      y: [-10, 10, -10],
+      x: [-3, 3, -3],
+      rotate: [0, 3, -3, 0],
+      scale: [1, 1.05, 1],
       transition: {
-        duration: 8,
+        duration: 10,
         repeat: Infinity,
         ease: "easeInOut",
       },
@@ -245,20 +244,18 @@ const Process = () => {
         </svg>
       </div>
 
-      {/* Enhanced Floating Elements */}
-      {[...Array(6)].map((_, i) => (
+      {/* Enhanced Floating Elements - Reduced for performance */}
+      {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
           variants={floatingVariants}
           animate="animate"
-          className={`absolute w-${2 + (i % 3)} h-${
-            2 + (i % 3)
-          } rounded-full opacity-40`}
+          className={`absolute w-3 h-3 rounded-full opacity-30`}
           style={{
             backgroundColor: i % 2 === 0 ? "#3b82f6" : "#8b5cf6",
-            top: `${20 + i * 15}%`,
-            left: `${10 + i * 15}%`,
-            animationDelay: `${i * 1.5}s`,
+            top: `${25 + i * 25}%`,
+            left: `${15 + i * 25}%`,
+            animationDelay: `${i * 2}s`,
           }}
         />
       ))}
@@ -416,7 +413,7 @@ const Process = () => {
                     initial={{ scale: 0, rotate: -45 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
-                    className="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg"
+                    className="absolute top-3 right-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg z-20 max-w-[120px] text-center leading-tight"
                   >
                     {step.highlight}
                   </motion.div>
@@ -444,26 +441,26 @@ const Process = () => {
                           />
                         </div>
 
-                        {/* Floating particles around number */}
+                        {/* Floating particles around number - Reduced for performance */}
                         <div className="absolute inset-0 pointer-events-none">
-                          {[...Array(3)].map((_, i) => (
+                          {[...Array(2)].map((_, i) => (
                             <motion.div
                               key={i}
                               className="absolute w-1 h-1 bg-blue-400 rounded-full"
                               animate={{
-                                x: [0, 20, -20, 0],
-                                y: [0, -20, 20, 0],
-                                opacity: [0, 1, 0],
+                                x: [0, 15, -15, 0],
+                                y: [0, -15, 15, 0],
+                                opacity: [0, 0.8, 0],
                               }}
                               transition={{
-                                duration: 3,
-                                delay: i * 0.5,
+                                duration: 4,
+                                delay: i * 0.8,
                                 repeat: Infinity,
                                 ease: "easeInOut",
                               }}
                               style={{
-                                top: `${20 + i * 10}%`,
-                                left: `${30 + i * 15}%`,
+                                top: `${25 + i * 15}%`,
+                                left: `${35 + i * 20}%`,
                               }}
                             />
                           ))}
@@ -474,13 +471,13 @@ const Process = () => {
                       <motion.div
                         whileHover={{ scale: 1.2, rotate: 360 }}
                         transition={{ duration: 0.6 }}
-                        className="relative w-10 h-10 bg-slate-700/50 border-2 border-slate-600/50 rounded-xl flex items-center justify-center group-hover:border-blue-400/50 transition-all duration-300 mx-auto mb-3 shadow-lg"
+                        className="relative w-10 h-10 bg-slate-700/50 border-2 border-slate-600/50 rounded-xl flex items-center justify-center group-hover:border-blue-400/50 transition-all duration-300 mx-auto mb-4 shadow-lg"
                       >
                         <step.icon className="w-5 h-5 text-slate-400 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-300" />
                         <div className="absolute inset-0 bg-blue-400/10 rounded-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                       </motion.div>
 
-                      <h3 className="text-lg md:text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300 mb-2 tracking-tight">
+                      <h3 className="text-lg md:text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300 mb-3 tracking-tight px-2 text-center">
                         {step.title}
                       </h3>
 
@@ -755,8 +752,6 @@ const Process = () => {
                 <span>Free consultation</span>
                 <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
                 <span>No commitment required</span>
-                <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
-                <span>30-day money-back guarantee</span>
               </div>
             </div>
           </div>

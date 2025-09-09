@@ -452,7 +452,7 @@ export default function ContactForms() {
                         required
                         value={contactForm.name}
                         onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                        className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        className="!bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                         placeholder="Enter your full name"
                       />
                     </motion.div>
@@ -471,7 +471,7 @@ export default function ContactForms() {
                         required
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        className="!bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                         placeholder="your.email@company.com"
                       />
                     </motion.div>
@@ -514,7 +514,7 @@ export default function ContactForms() {
                           required
                           value={contactForm.phone}
                           onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                          className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                          className="!bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                           placeholder="(405) 200-4589"
                         />
                       </div>
@@ -535,7 +535,7 @@ export default function ContactForms() {
                       type="text"
                       value={contactForm.company}
                       onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
-                      className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                      className="!bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Your company name (optional)"
                     />
                   </motion.div>
@@ -555,7 +555,7 @@ export default function ContactForms() {
                       rows={6}
                       value={contactForm.message}
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
+                      className="!bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Tell us about your project, questions, or how we can help you..."
                     />
                   </motion.div>
@@ -684,7 +684,7 @@ export default function ContactForms() {
                         required
                         value={quoteForm.name}
                         onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                        className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        className="!bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                         placeholder="Enter your full name"
                       />
                     </motion.div>
@@ -703,7 +703,7 @@ export default function ContactForms() {
                         required
                         value={quoteForm.email}
                         onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                        className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        className="!bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                         placeholder="your.email@company.com"
                       />
                     </motion.div>
@@ -746,7 +746,7 @@ export default function ContactForms() {
                           required
                           value={quoteForm.phone}
                           onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                          className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                          className="!bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                           placeholder="(405) 200-4589"
                         />
                       </div>
@@ -767,7 +767,7 @@ export default function ContactForms() {
                       type="text"
                       value={quoteForm.company}
                       onChange={(e) => setQuoteForm({ ...quoteForm, company: e.target.value })}
-                      className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                      className="!bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Your company name (optional)"
                     />
                   </motion.div>
@@ -875,7 +875,7 @@ export default function ContactForms() {
                       rows={6}
                       value={quoteForm.description}
                       onChange={(e) => setQuoteForm({ ...quoteForm, description: e.target.value })}
-                      className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
+                      className="!bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Describe your project requirements, goals, specific features you need, target audience, and any technical preferences..."
                     />
                   </motion.div>

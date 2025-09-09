@@ -126,19 +126,10 @@ const Navigation = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-background/70 backdrop-blur-lg border-b border-gradient shadow-2xl shadow-primary/10"
+            ? "bg-background/70 backdrop-blur-lg shadow-2xl shadow-primary/10"
             : "bg-transparent"
         }`}
       >
-        {/* Animated border gradient */}
-        {isScrolled && (
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-          />
-        )}
 
         <div className="container mx-auto px-3 md:px-4">
           <div className="flex items-center justify-between h-16 md:h-20">

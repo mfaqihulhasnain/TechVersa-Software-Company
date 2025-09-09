@@ -17,13 +17,19 @@ import {
   MessageSquare,
   FileText,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  User,
+  Building,
+  DollarSign,
+  Clock
 } from "lucide-react";
 
 export default function ContactForms() {
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
+    phone: '',
+    countryId: 'us',
     company: '',
     message: ''
   });
@@ -31,6 +37,8 @@ export default function ContactForms() {
   const [quoteForm, setQuoteForm] = useState({
     name: '',
     email: '',
+    phone: '',
+    countryId: 'us',
     company: '',
     projectType: '',
     budgetRange: '',
@@ -68,6 +76,77 @@ export default function ContactForms() {
     "Flexible"
   ];
 
+  const countryCodes = [
+    { id: "us", code: "+1", country: "United States", flag: "🇺🇸" },
+    { id: "ca", code: "+1", country: "Canada", flag: "🇨🇦" },
+    { id: "uk", code: "+44", country: "United Kingdom", flag: "🇬🇧" },
+    { id: "de", code: "+49", country: "Germany", flag: "🇩🇪" },
+    { id: "fr", code: "+33", country: "France", flag: "🇫🇷" },
+    { id: "it", code: "+39", country: "Italy", flag: "🇮🇹" },
+    { id: "es", code: "+34", country: "Spain", flag: "🇪🇸" },
+    { id: "nl", code: "+31", country: "Netherlands", flag: "🇳🇱" },
+    { id: "se", code: "+46", country: "Sweden", flag: "🇸🇪" },
+    { id: "no", code: "+47", country: "Norway", flag: "🇳🇴" },
+    { id: "dk", code: "+45", country: "Denmark", flag: "🇩🇰" },
+    { id: "ch", code: "+41", country: "Switzerland", flag: "🇨🇭" },
+    { id: "at", code: "+43", country: "Austria", flag: "🇦🇹" },
+    { id: "be", code: "+32", country: "Belgium", flag: "🇧🇪" },
+    { id: "pt", code: "+351", country: "Portugal", flag: "🇵🇹" },
+    { id: "gr", code: "+30", country: "Greece", flag: "🇬🇷" },
+    { id: "pl", code: "+48", country: "Poland", flag: "🇵🇱" },
+    { id: "cz", code: "+420", country: "Czech Republic", flag: "🇨🇿" },
+    { id: "hu", code: "+36", country: "Hungary", flag: "🇭🇺" },
+    { id: "ro", code: "+40", country: "Romania", flag: "🇷🇴" },
+    { id: "bg", code: "+359", country: "Bulgaria", flag: "🇧🇬" },
+    { id: "hr", code: "+385", country: "Croatia", flag: "🇭🇷" },
+    { id: "si", code: "+386", country: "Slovenia", flag: "🇸🇮" },
+    { id: "sk", code: "+421", country: "Slovakia", flag: "🇸🇰" },
+    { id: "lt", code: "+370", country: "Lithuania", flag: "🇱🇹" },
+    { id: "lv", code: "+371", country: "Latvia", flag: "🇱🇻" },
+    { id: "ee", code: "+372", country: "Estonia", flag: "🇪🇪" },
+    { id: "ie", code: "+353", country: "Ireland", flag: "🇮🇪" },
+    { id: "fi", code: "+358", country: "Finland", flag: "🇫🇮" },
+    { id: "ru", code: "+7", country: "Russia", flag: "🇷🇺" },
+    { id: "ua", code: "+380", country: "Ukraine", flag: "🇺🇦" },
+    { id: "by", code: "+375", country: "Belarus", flag: "🇧🇾" },
+    { id: "jp", code: "+81", country: "Japan", flag: "🇯🇵" },
+    { id: "kr", code: "+82", country: "South Korea", flag: "🇰🇷" },
+    { id: "cn", code: "+86", country: "China", flag: "🇨🇳" },
+    { id: "in", code: "+91", country: "India", flag: "🇮🇳" },
+    { id: "au", code: "+61", country: "Australia", flag: "🇦🇺" },
+    { id: "nz", code: "+64", country: "New Zealand", flag: "🇳🇿" },
+    { id: "br", code: "+55", country: "Brazil", flag: "🇧🇷" },
+    { id: "mx", code: "+52", country: "Mexico", flag: "🇲🇽" },
+    { id: "ar", code: "+54", country: "Argentina", flag: "🇦🇷" },
+    { id: "cl", code: "+56", country: "Chile", flag: "🇨🇱" },
+    { id: "co", code: "+57", country: "Colombia", flag: "🇨🇴" },
+    { id: "pe", code: "+51", country: "Peru", flag: "🇵🇪" },
+    { id: "ve", code: "+58", country: "Venezuela", flag: "🇻🇪" },
+    { id: "za", code: "+27", country: "South Africa", flag: "🇿🇦" },
+    { id: "eg", code: "+20", country: "Egypt", flag: "🇪🇬" },
+    { id: "ng", code: "+234", country: "Nigeria", flag: "🇳🇬" },
+    { id: "ke", code: "+254", country: "Kenya", flag: "🇰🇪" },
+    { id: "gh", code: "+233", country: "Ghana", flag: "🇬🇭" },
+    { id: "ma", code: "+212", country: "Morocco", flag: "🇲🇦" },
+    { id: "dz", code: "+213", country: "Algeria", flag: "🇩🇿" },
+    { id: "tn", code: "+216", country: "Tunisia", flag: "🇹🇳" },
+    { id: "ly", code: "+218", country: "Libya", flag: "🇱🇾" },
+    { id: "sa", code: "+966", country: "Saudi Arabia", flag: "🇸🇦" },
+    { id: "ae", code: "+971", country: "UAE", flag: "🇦🇪" },
+    { id: "qa", code: "+974", country: "Qatar", flag: "🇶🇦" },
+    { id: "kw", code: "+965", country: "Kuwait", flag: "🇰🇼" },
+    { id: "bh", code: "+973", country: "Bahrain", flag: "🇧🇭" },
+    { id: "om", code: "+968", country: "Oman", flag: "🇴🇲" },
+    { id: "jo", code: "+962", country: "Jordan", flag: "🇯🇴" },
+    { id: "lb", code: "+961", country: "Lebanon", flag: "🇱🇧" },
+    { id: "sy", code: "+963", country: "Syria", flag: "🇸🇾" },
+    { id: "iq", code: "+964", country: "Iraq", flag: "🇮🇶" },
+    { id: "ir", code: "+98", country: "Iran", flag: "🇮🇷" },
+    { id: "tr", code: "+90", country: "Turkey", flag: "🇹🇷" },
+    { id: "il", code: "+972", country: "Israel", flag: "🇮🇱" },
+    { id: "ps", code: "+970", country: "Palestine", flag: "🇵🇸" }
+  ];
+
   // Initialize EmailJS if keys are available
   useEffect(() => {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
@@ -88,9 +167,11 @@ export default function ContactForms() {
       
       if (serviceId && templateId && serviceId !== "your_service_id_here") {
         // Use EmailJS if configured
+        const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
         const templateParams = {
           from_name: contactForm.name,
           from_email: contactForm.email,
+          phone: (selectedCountry?.code || '+1') + " " + contactForm.phone,
           company: contactForm.company || "Not provided",
           message: contactForm.message,
           to_email: "faqihulhasnain572@gmail.com",
@@ -104,9 +185,11 @@ export default function ContactForms() {
         
         if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
           // Fallback: Log the form data and show success message
+          const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
           console.log('Contact Form Submission:', {
             name: contactForm.name,
             email: contactForm.email,
+            phone: (selectedCountry?.code || '+1') + " " + contactForm.phone,
             company: contactForm.company || "Not provided",
             message: contactForm.message,
             timestamp: new Date().toISOString()
@@ -114,14 +197,16 @@ export default function ContactForms() {
           
           // Simulate successful submission
           setSubmitStatus({ type: 'success', message: 'Message received! We\'ll get back to you soon.' });
-          setContactForm({ name: '', email: '', company: '', message: '' });
+          setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
           return;
         }
         
         const formData = new FormData();
         formData.append('access_key', accessKey);
+        const selectedCountry = countryCodes.find(country => country.id === contactForm.countryId);
         formData.append('name', contactForm.name);
         formData.append('email', contactForm.email);
+        formData.append('phone', (selectedCountry?.code || '+1') + " " + contactForm.phone);
         formData.append('company', contactForm.company || "Not provided");
         formData.append('message', contactForm.message);
         formData.append('subject', 'New Contact Form Submission - TechVersa');
@@ -141,7 +226,7 @@ export default function ContactForms() {
 
       setIsSubmitting(false);
       setSubmitStatus({ type: 'success', message: 'Message sent successfully! We\'ll get back to you soon.' });
-      setContactForm({ name: '', email: '', company: '', message: '' });
+      setContactForm({ name: '', email: '', phone: '', countryId: 'us', company: '', message: '' });
       
     } catch (error) {
       console.error('Error sending email:', error);
@@ -162,9 +247,11 @@ export default function ContactForms() {
       
       if (serviceId && templateId && serviceId !== "your_service_id_here") {
         // Use EmailJS if configured
+        const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
         const templateParams = {
           from_name: quoteForm.name,
           from_email: quoteForm.email,
+          phone: (selectedCountry?.code || '+1') + " " + quoteForm.phone,
           company: quoteForm.company || "Not provided",
           project_type: quoteForm.projectType,
           budget_range: quoteForm.budgetRange,
@@ -181,9 +268,11 @@ export default function ContactForms() {
         
         if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
           // Fallback: Log the form data and show success message
+          const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
           console.log('Quote Request Submission:', {
             name: quoteForm.name,
             email: quoteForm.email,
+            phone: (selectedCountry?.code || '+1') + " " + quoteForm.phone,
             company: quoteForm.company || "Not provided",
             projectType: quoteForm.projectType,
             budgetRange: quoteForm.budgetRange,
@@ -197,6 +286,8 @@ export default function ContactForms() {
           setQuoteForm({ 
             name: '', 
             email: '', 
+            phone: '', 
+            countryId: 'us', 
             company: '', 
             projectType: '', 
             budgetRange: '', 
@@ -208,8 +299,10 @@ export default function ContactForms() {
         
         const formData = new FormData();
         formData.append('access_key', accessKey);
+        const selectedCountry = countryCodes.find(country => country.id === quoteForm.countryId);
         formData.append('name', quoteForm.name);
         formData.append('email', quoteForm.email);
+        formData.append('phone', (selectedCountry?.code || '+1') + " " + quoteForm.phone);
         formData.append('company', quoteForm.company || "Not provided");
         formData.append('project_type', quoteForm.projectType);
         formData.append('budget_range', quoteForm.budgetRange);
@@ -235,6 +328,8 @@ export default function ContactForms() {
       setQuoteForm({ 
         name: '', 
         email: '', 
+        phone: '', 
+        countryId: 'us', 
         company: '', 
         projectType: '', 
         budgetRange: '', 
@@ -258,7 +353,7 @@ export default function ContactForms() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12"
         >
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 shadow-2xl shadow-black/20">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-2 shadow-xl shadow-black/25">
             <TabsTrigger 
               value="contact" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 rounded-xl transition-all duration-300 hover:bg-slate-700/50"
@@ -284,10 +379,10 @@ export default function ContactForms() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>
-            <Card className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl shadow-2xl shadow-black/20 overflow-hidden">
-              {/* Animated background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+            <Card className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/30 overflow-hidden backdrop-blur-sm">
+              {/* Subtle background pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 to-cyan-500/3"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
               
               <CardHeader className="text-center relative z-10">
                 <motion.div
@@ -312,6 +407,7 @@ export default function ContactForms() {
                       transition={{ duration: 0.5, delay: 0.4 }}
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <User className="w-4 h-4 inline mr-2" />
                         Name *
                       </label>
                       <Input
@@ -329,6 +425,7 @@ export default function ContactForms() {
                       transition={{ duration: 0.5, delay: 0.5 }}
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <Mail className="w-4 h-4 inline mr-2" />
                         Email *
                       </label>
                       <Input
@@ -348,6 +445,50 @@ export default function ContactForms() {
                     transition={{ duration: 0.5, delay: 0.6 }}
                   >
                     <label className="block text-sm font-medium text-white mb-3">
+                      <Phone className="w-4 h-4 inline mr-2" />
+                      Phone Number *
+                    </label>
+                    <div className="flex gap-3">
+                      <div className="w-32">
+                        <Select
+                          value={contactForm.countryId}
+                          onValueChange={(value) => setContactForm({ ...contactForm, countryId: value })}
+                        >
+                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                            <SelectValue placeholder="Code" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
+                            {countryCodes.map((country) => (
+                              <SelectItem key={country.id} value={country.id} className="text-white hover:bg-blue-500/20 focus:bg-blue-500/20">
+                                <span className="flex items-center gap-2">
+                                  <span>{country.flag}</span>
+                                  <span>{country.code}</span>
+                                </span>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex-1">
+                        <Input
+                          type="tel"
+                          required
+                          value={contactForm.phone}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                          className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                          placeholder="(405) 200-4589"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    <label className="block text-sm font-medium text-white mb-3">
+                      <Building className="w-4 h-4 inline mr-2" />
                       Company
                     </label>
                     <Input
@@ -362,9 +503,10 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
                   >
                     <label className="block text-sm font-medium text-white mb-3">
+                      <MessageSquare className="w-4 h-4 inline mr-2" />
                       Message *
                     </label>
                     <Textarea
@@ -433,10 +575,10 @@ export default function ContactForms() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl blur-3xl"></div>
-            <Card className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl shadow-2xl shadow-black/20 overflow-hidden">
-              {/* Animated background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+            <Card className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/30 overflow-hidden backdrop-blur-sm">
+              {/* Subtle background pattern */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/3 to-pink-500/3"></div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.05),transparent_50%)]"></div>
               
               <CardHeader className="text-center relative z-10">
                 <motion.div
@@ -461,6 +603,7 @@ export default function ContactForms() {
                       transition={{ duration: 0.5, delay: 0.4 }}
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <User className="w-4 h-4 inline mr-2" />
                         Name *
                       </label>
                       <Input
@@ -478,6 +621,7 @@ export default function ContactForms() {
                       transition={{ duration: 0.5, delay: 0.5 }}
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <Mail className="w-4 h-4 inline mr-2" />
                         Email *
                       </label>
                       <Input
@@ -497,6 +641,50 @@ export default function ContactForms() {
                     transition={{ duration: 0.5, delay: 0.6 }}
                   >
                     <label className="block text-sm font-medium text-white mb-3">
+                      <Phone className="w-4 h-4 inline mr-2" />
+                      Phone Number *
+                    </label>
+                    <div className="flex gap-3">
+                      <div className="w-32">
+                        <Select
+                          value={quoteForm.countryId}
+                          onValueChange={(value) => setQuoteForm({ ...quoteForm, countryId: value })}
+                        >
+                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                            <SelectValue placeholder="Code" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
+                            {countryCodes.map((country) => (
+                              <SelectItem key={country.id} value={country.id} className="text-white hover:bg-purple-500/20 focus:bg-purple-500/20">
+                                <span className="flex items-center gap-2">
+                                  <span>{country.flag}</span>
+                                  <span>{country.code}</span>
+                                </span>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex-1">
+                        <Input
+                          type="tel"
+                          required
+                          value={quoteForm.phone}
+                          onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
+                          className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                          placeholder="(405) 200-4589"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    <label className="block text-sm font-medium text-white mb-3">
+                      <Building className="w-4 h-4 inline mr-2" />
                       Company
                     </label>
                     <Input
@@ -516,6 +704,7 @@ export default function ContactForms() {
                       className="relative"
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <FileText className="w-4 h-4 inline mr-2" />
                         Project Type *
                       </label>
                       <div className="relative overflow-visible">
@@ -543,6 +732,7 @@ export default function ContactForms() {
                       className="relative"
                     >
                       <label className="block text-sm font-medium text-white mb-3">
+                        <DollarSign className="w-4 h-4 inline mr-2" />
                         Budget Range *
                       </label>
                       <div className="relative overflow-visible">
@@ -571,9 +761,10 @@ export default function ContactForms() {
                     transition={{ duration: 0.5, delay: 0.9 }}
                     className="relative"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      Timeline *
-                    </label>
+                      <label className="block text-sm font-medium text-white mb-3">
+                        <Clock className="w-4 h-4 inline mr-2" />
+                        Timeline *
+                      </label>
                     <div className="relative overflow-visible">
                       <Select
                         value={quoteForm.timeline}
@@ -598,9 +789,10 @@ export default function ContactForms() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.0 }}
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      Project Description *
-                    </label>
+                      <label className="block text-sm font-medium text-white mb-3">
+                        <FileText className="w-4 h-4 inline mr-2" />
+                        Project Description *
+                      </label>
                     <Textarea
                       required
                       rows={6}
@@ -672,9 +864,9 @@ export default function ContactForms() {
           whileHover={{ y: -8, scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20">
-            {/* Card Background Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20">
+            {/* Subtle background effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/2 to-cyan-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
@@ -685,7 +877,7 @@ export default function ContactForms() {
               className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
             >
               <Mail className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl blur-md opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.div>
             <h3 className="text-xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300 mb-3">Email Us</h3>
             <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">faqihulhasnain572@gmail.com</p>
@@ -697,9 +889,9 @@ export default function ContactForms() {
           whileHover={{ y: -8, scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20">
-            {/* Card Background Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-green-500/60 hover:shadow-xl hover:shadow-green-500/20">
+            {/* Subtle background effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/2 to-emerald-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
@@ -710,10 +902,10 @@ export default function ContactForms() {
               className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
             >
               <Phone className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl blur-md opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.div>
             <h3 className="text-xl font-bold text-white group-hover:text-green-100 transition-colors duration-300 mb-3">Call Us</h3>
-            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">+14052004589</p>
+            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">+1 (405) 200-4589</p>
           </div>
         </motion.div>
         
@@ -722,9 +914,9 @@ export default function ContactForms() {
           whileHover={{ y: -8, scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/20">
-            {/* Card Background Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-purple-500/60 hover:shadow-xl hover:shadow-purple-500/20">
+            {/* Subtle background effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/2 to-pink-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
@@ -735,7 +927,7 @@ export default function ContactForms() {
               className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
             >
               <MapPin className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl blur-md opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.div>
             <h3 className="text-xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300 mb-3">Visit Us</h3>
             <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">San Francisco, CA</p>

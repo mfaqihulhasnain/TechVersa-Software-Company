@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +21,9 @@ import {
   User,
   Building,
   DollarSign,
-  Clock
+  Clock,
+  ArrowRight,
+  Sparkles
 } from "lucide-react";
 
 export default function ContactForms() {
@@ -48,13 +50,14 @@ export default function ContactForms() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [activeTab, setActiveTab] = useState("contact");
 
   const budgetRanges = [
     "$5,000 - $15,000",
     "$15,000 - $50,000", 
     "$50,000 - $100,000",
     "$100,000+",
-    "Let&apos;s discuss"
+    "Let's discuss"
   ];
 
   const projectTypes = [
@@ -346,95 +349,181 @@ export default function ContactForms() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-      <Tabs defaultValue="contact" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12"
+          className="mb-16 flex justify-center"
         >
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-2 shadow-xl shadow-black/25">
-            <TabsTrigger 
-              value="contact" 
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-blue-500/25 rounded-xl transition-all duration-300 hover:bg-slate-700/50"
+          {/* Custom Enhanced Tab Buttons */}
+          <div className="relative flex bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl p-2 shadow-2xl">
+            {/* Animated Background Slider */}
+            <motion.div
+              className="absolute inset-y-2 rounded-2xl transition-all duration-500 ease-out"
+              animate={{
+                x: activeTab === "contact" ? 4 : "calc(100% - 4px)",
+                width: activeTab === "contact" ? "calc(50% - 4px)" : "calc(50% - 4px)"
+              }}
+              style={{
+                background: activeTab === "contact" 
+                  ? "linear-gradient(135deg, #3b82f6, #06b6d4)" 
+                  : "linear-gradient(135deg, #8b5cf6, #ec4899)",
+                boxShadow: activeTab === "contact"
+                  ? "0 8px 32px rgba(59, 130, 246, 0.4)"
+                  : "0 8px 32px rgba(139, 92, 246, 0.4)"
+              }}
+            />
+            
+            {/* Contact Tab */}
+            <motion.button
+              onClick={() => setActiveTab("contact")}
+              className={`relative z-10 flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+                activeTab === "contact"
+                  ? "text-white"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              Contact Us
-            </TabsTrigger>
-            <TabsTrigger 
-              value="quote" 
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-purple-500/25 rounded-xl transition-all duration-300 hover:bg-slate-700/50"
+              <motion.div
+                animate={{ rotate: activeTab === "contact" ? 360 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <MessageSquare className="w-5 h-5" />
+              </motion.div>
+              <span className="text-lg">Contact Us</span>
+              {activeTab === "contact" && (
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Sparkles className="w-4 h-4 text-cyan-300" />
+                </motion.div>
+              )}
+            </motion.button>
+
+            {/* Quote Tab */}
+            <motion.button
+              onClick={() => setActiveTab("quote")}
+              className={`relative z-10 flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 ${
+                activeTab === "quote"
+                  ? "text-white"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <FileText className="w-4 h-4 mr-2" />
-              Request Quote
-            </TabsTrigger>
-          </TabsList>
+              <motion.div
+                animate={{ rotate: activeTab === "quote" ? 360 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <FileText className="w-5 h-5" />
+              </motion.div>
+              <span className="text-lg">Request Quote</span>
+              {activeTab === "quote" && (
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <ArrowRight className="w-4 h-4 text-pink-300" />
+                </motion.div>
+              )}
+            </motion.button>
+          </div>
         </motion.div>
 
         {/* Contact Form */}
         <TabsContent value="contact">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            key="contact"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -30, scale: 0.95 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
-            <Card className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/30 overflow-hidden backdrop-blur-sm">
-              {/* Subtle background pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 to-cyan-500/3"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+            <Card className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/40 overflow-hidden backdrop-blur-sm">
+              {/* Enhanced background effects */}
+              <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(6,182,212,0.08),transparent_50%)]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent"></div>
+              </div>
               
-              <CardHeader className="text-center relative z-10">
+              <CardHeader className="text-center relative z-10 pb-8">
                 <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
+                  initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <CardTitle className="text-3xl font-display bg-gradient-to-r from-white via-cyan-200 to-blue-300 bg-clip-text text-transparent mb-4">
+                  <div className="flex items-center justify-center mb-6">
+                    <motion.div
+                      animate={{ 
+                        rotate: [0, 10, -10, 0],
+                        scale: [1, 1.1, 1] 
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 3
+                      }}
+                      className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25"
+                    >
+                      <MessageSquare className="w-8 h-8 text-white" />
+                    </motion.div>
+                  </div>
+                  <CardTitle className="text-4xl font-display bg-gradient-to-r from-white via-cyan-200 to-blue-300 bg-clip-text text-transparent mb-4">
                     Send us a Message
                   </CardTitle>
-                  <CardDescription className="text-slate-400 text-lg">
-                    Have a question or want to discuss a project? We&apos;d love to hear from you.
+                  <CardDescription className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Have a question or want to discuss a project? We'd love to hear from you and help bring your ideas to life.
                   </CardDescription>
                 </motion.div>
               </CardHeader>
-              <CardContent className="relative z-10">
-                <form onSubmit={handleContactSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <CardContent className="relative z-10 px-8 pb-8">
+                <form onSubmit={handleContactSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <motion.div
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <User className="w-4 h-4 inline mr-2" />
-                        Name *
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <User className="w-4 h-4 inline mr-2 text-blue-400" />
+                        Full Name *
                       </label>
                       <Input
                         type="text"
                         required
                         value={contactForm.name}
                         onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                        className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
-                        placeholder="Your full name"
+                        className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        placeholder="Enter your full name"
                       />
                     </motion.div>
                     <motion.div
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.5 }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                      className="group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <Mail className="w-4 h-4 inline mr-2" />
-                        Email *
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <Mail className="w-4 h-4 inline mr-2 text-blue-400" />
+                        Email Address *
                       </label>
                       <Input
                         type="email"
                         required
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
-                        placeholder="your.email@example.com"
+                        className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        placeholder="your.email@company.com"
                       />
                     </motion.div>
                   </div>
@@ -442,27 +531,28 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className="group"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      <Phone className="w-4 h-4 inline mr-2" />
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <Phone className="w-4 h-4 inline mr-2 text-blue-400" />
                       Phone Number *
                     </label>
-                    <div className="flex gap-3">
-                      <div className="w-32">
+                    <div className="flex gap-4">
+                      <div className="w-36">
                         <Select
                           value={contactForm.countryId}
                           onValueChange={(value) => setContactForm({ ...contactForm, countryId: value })}
                         >
-                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                          <SelectTrigger className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white rounded-xl h-14 transition-all duration-300">
                             <SelectValue placeholder="Code" />
                           </SelectTrigger>
                           <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
                             {countryCodes.map((country) => (
                               <SelectItem key={country.id} value={country.id} className="text-white hover:bg-blue-500/20 focus:bg-blue-500/20">
-                                <span className="flex items-center gap-2">
+                                <span className="flex items-center gap-3">
                                   <span>{country.flag}</span>
-                                  <span>{country.code}</span>
+                                  <span className="font-mono">{country.code}</span>
                                 </span>
                               </SelectItem>
                             ))}
@@ -475,7 +565,7 @@ export default function ContactForms() {
                           required
                           value={contactForm.phone}
                           onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                          className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                          className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                           placeholder="(405) 200-4589"
                         />
                       </div>
@@ -485,17 +575,18 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="group"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      <Building className="w-4 h-4 inline mr-2" />
-                      Company
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <Building className="w-4 h-4 inline mr-2 text-blue-400" />
+                      Company Name
                     </label>
                     <Input
                       type="text"
                       value={contactForm.company}
                       onChange={(e) => setContactForm({ ...contactForm, company: e.target.value })}
-                      className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                      className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Your company name (optional)"
                     />
                   </motion.div>
@@ -503,40 +594,49 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                    className="group"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      <MessageSquare className="w-4 h-4 inline mr-2" />
-                      Message *
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <MessageSquare className="w-4 h-4 inline mr-2 text-blue-400" />
+                      Your Message *
                     </label>
                     <Textarea
                       required
                       rows={6}
                       value={contactForm.message}
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      className="bg-slate-800/50 border-slate-600/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 text-white placeholder-slate-400 resize-none rounded-xl transition-all duration-300"
-                      placeholder="Tell us about your project or question..."
+                      className="bg-slate-800/60 border-slate-600/60 focus:border-blue-500/60 focus:ring-4 focus:ring-blue-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
+                      placeholder="Tell us about your project, questions, or how we can help you..."
                     />
                   </motion.div>
 
-                  {submitStatus && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className={`p-4 rounded-xl flex items-center gap-3 backdrop-blur-sm ${
-                        submitStatus.type === 'success' 
-                          ? 'bg-green-500/20 border border-green-500/30 text-green-400' 
-                          : 'bg-red-500/20 border border-red-500/30 text-red-400'
-                      }`}
-                    >
-                      {submitStatus.type === 'success' ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : (
-                        <AlertCircle className="w-5 h-5" />
-                      )}
-                      <span>{submitStatus.message}</span>
-                    </motion.div>
-                  )}
+                  <AnimatePresence>
+                    {submitStatus && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        className={`p-6 rounded-2xl flex items-center gap-4 backdrop-blur-sm border ${
+                          submitStatus.type === 'success' 
+                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300' 
+                            : 'bg-red-500/15 border-red-500/30 text-red-300'
+                        }`}
+                      >
+                        <motion.div
+                          animate={{ rotate: submitStatus.type === 'success' ? 360 : 0 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          {submitStatus.type === 'success' ? (
+                            <CheckCircle className="w-6 h-6" />
+                          ) : (
+                            <AlertCircle className="w-6 h-6" />
+                          )}
+                        </motion.div>
+                        <span className="font-medium">{submitStatus.message}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -546,17 +646,17 @@ export default function ContactForms() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-4 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:via-blue-600 hover:to-cyan-600 text-white font-semibold py-6 rounded-2xl transition-all duration-300 shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
                     >
                       {isSubmitting ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending...
+                          <span className="text-lg">Sending Message...</span>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <Send className="w-5 h-5" />
-                          Send Message
+                          <span className="text-lg">Send Message</span>
                         </div>
                       )}
                     </Button>
@@ -570,67 +670,92 @@ export default function ContactForms() {
         {/* Quote Request Form */}
         <TabsContent value="quote">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            key="quote"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -30, scale: 0.95 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
-            <Card className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/30 overflow-hidden backdrop-blur-sm">
-              {/* Subtle background pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/3 to-pink-500/3"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.05),transparent_50%)]"></div>
+            <Card className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/95 to-slate-900/95 border border-slate-700/30 rounded-3xl shadow-2xl shadow-black/40 overflow-hidden backdrop-blur-sm">
+              {/* Enhanced background effects */}
+              <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(147,51,234,0.1),transparent_50%)]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.08),transparent_50%)]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent"></div>
+              </div>
               
-              <CardHeader className="text-center relative z-10">
+              <CardHeader className="text-center relative z-10 pb-8">
                 <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
+                  initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <CardTitle className="text-3xl font-display bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent mb-4">
+                  <div className="flex items-center justify-center mb-6">
+                    <motion.div
+                      animate={{ 
+                        rotate: [0, -10, 10, 0],
+                        scale: [1, 1.1, 1] 
+                      }}
+                      transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 3
+                      }}
+                      className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25"
+                    >
+                      <FileText className="w-8 h-8 text-white" />
+                    </motion.div>
+                  </div>
+                  <CardTitle className="text-4xl font-display bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent mb-4">
                     Request a Quote
                   </CardTitle>
-                  <CardDescription className="text-slate-400 text-lg">
-                    Ready to start your project? Tell us about your requirements and we&apos;ll provide a detailed quote.
+                  <CardDescription className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Ready to start your project? Tell us about your requirements and we'll provide a detailed, competitive quote tailored to your needs.
                   </CardDescription>
                 </motion.div>
               </CardHeader>
-              <CardContent className="relative z-10">
-                <form onSubmit={handleQuoteSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <CardContent className="relative z-10 px-8 pb-8">
+                <form onSubmit={handleQuoteSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <motion.div
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <User className="w-4 h-4 inline mr-2" />
-                        Name *
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <User className="w-4 h-4 inline mr-2 text-purple-400" />
+                        Full Name *
                       </label>
                       <Input
                         type="text"
                         required
                         value={quoteForm.name}
                         onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                        className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
-                        placeholder="Your full name"
+                        className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        placeholder="Enter your full name"
                       />
                     </motion.div>
                     <motion.div
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.5 }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                      className="group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <Mail className="w-4 h-4 inline mr-2" />
-                        Email *
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <Mail className="w-4 h-4 inline mr-2 text-purple-400" />
+                        Email Address *
                       </label>
                       <Input
                         type="email"
                         required
                         value={quoteForm.email}
                         onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                        className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
-                        placeholder="your.email@example.com"
+                        className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
+                        placeholder="your.email@company.com"
                       />
                     </motion.div>
                   </div>
@@ -638,27 +763,28 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className="group"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      <Phone className="w-4 h-4 inline mr-2" />
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <Phone className="w-4 h-4 inline mr-2 text-purple-400" />
                       Phone Number *
                     </label>
-                    <div className="flex gap-3">
-                      <div className="w-32">
+                    <div className="flex gap-4">
+                      <div className="w-36">
                         <Select
                           value={quoteForm.countryId}
                           onValueChange={(value) => setQuoteForm({ ...quoteForm, countryId: value })}
                         >
-                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                          <SelectTrigger className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white rounded-xl h-14 transition-all duration-300">
                             <SelectValue placeholder="Code" />
                           </SelectTrigger>
                           <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
                             {countryCodes.map((country) => (
                               <SelectItem key={country.id} value={country.id} className="text-white hover:bg-purple-500/20 focus:bg-purple-500/20">
-                                <span className="flex items-center gap-2">
+                                <span className="flex items-center gap-3">
                                   <span>{country.flag}</span>
-                                  <span>{country.code}</span>
+                                  <span className="font-mono">{country.code}</span>
                                 </span>
                               </SelectItem>
                             ))}
@@ -671,7 +797,7 @@ export default function ContactForms() {
                           required
                           value={quoteForm.phone}
                           onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                          className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                          className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                           placeholder="(405) 200-4589"
                         />
                       </div>
@@ -681,30 +807,31 @@ export default function ContactForms() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.7 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="group"
                   >
-                    <label className="block text-sm font-medium text-white mb-3">
-                      <Building className="w-4 h-4 inline mr-2" />
-                      Company
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <Building className="w-4 h-4 inline mr-2 text-purple-400" />
+                      Company Name
                     </label>
                     <Input
                       type="text"
                       value={quoteForm.company}
                       onChange={(e) => setQuoteForm({ ...quoteForm, company: e.target.value })}
-                      className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 rounded-xl h-12 transition-all duration-300"
+                      className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80"
                       placeholder="Your company name (optional)"
                     />
                   </motion.div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.7 }}
-                      className="relative"
+                      className="relative group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <FileText className="w-4 h-4 inline mr-2" />
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <FileText className="w-4 h-4 inline mr-2 text-purple-400" />
                         Project Type *
                       </label>
                       <div className="relative overflow-visible">
@@ -712,7 +839,7 @@ export default function ContactForms() {
                           value={quoteForm.projectType}
                           onValueChange={(value) => setQuoteForm({ ...quoteForm, projectType: value })}
                         >
-                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                          <SelectTrigger className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80">
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
                           <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
@@ -729,10 +856,10 @@ export default function ContactForms() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.8 }}
-                      className="relative"
+                      className="relative group"
                     >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <DollarSign className="w-4 h-4 inline mr-2" />
+                      <label className="block text-sm font-semibold text-slate-200 mb-4">
+                        <DollarSign className="w-4 h-4 inline mr-2 text-purple-400" />
                         Budget Range *
                       </label>
                       <div className="relative overflow-visible">
@@ -740,7 +867,7 @@ export default function ContactForms() {
                           value={quoteForm.budgetRange}
                           onValueChange={(value) => setQuoteForm({ ...quoteForm, budgetRange: value })}
                         >
-                          <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                          <SelectTrigger className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80">
                             <SelectValue placeholder="Select budget range" />
                           </SelectTrigger>
                           <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
@@ -759,18 +886,18 @@ export default function ContactForms() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.9 }}
-                    className="relative"
+                    className="relative group"
                   >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <Clock className="w-4 h-4 inline mr-2" />
-                        Timeline *
-                      </label>
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <Clock className="w-4 h-4 inline mr-2 text-purple-400" />
+                      Timeline *
+                    </label>
                     <div className="relative overflow-visible">
                       <Select
                         value={quoteForm.timeline}
                         onValueChange={(value) => setQuoteForm({ ...quoteForm, timeline: value })}
                       >
-                        <SelectTrigger className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white rounded-xl h-12 transition-all duration-300">
+                        <SelectTrigger className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white rounded-xl h-14 transition-all duration-300 group-hover:border-slate-500/80">
                           <SelectValue placeholder="Select timeline" />
                         </SelectTrigger>
                         <SelectContent className="bg-slate-800 border-slate-600 text-white z-[9999] max-h-48 overflow-y-auto rounded-xl">
@@ -788,39 +915,48 @@ export default function ContactForms() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.0 }}
+                    className="group"
                   >
-                      <label className="block text-sm font-medium text-white mb-3">
-                        <FileText className="w-4 h-4 inline mr-2" />
-                        Project Description *
-                      </label>
+                    <label className="block text-sm font-semibold text-slate-200 mb-4">
+                      <FileText className="w-4 h-4 inline mr-2 text-purple-400" />
+                      Project Description *
+                    </label>
                     <Textarea
                       required
                       rows={6}
                       value={quoteForm.description}
                       onChange={(e) => setQuoteForm({ ...quoteForm, description: e.target.value })}
-                      className="bg-slate-800/50 border-slate-600/50 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 text-white placeholder-slate-400 resize-none rounded-xl transition-all duration-300"
-                      placeholder="Describe your project requirements, goals, and any specific features you need..."
+                      className="bg-slate-800/60 border-slate-600/60 focus:border-purple-500/60 focus:ring-4 focus:ring-purple-500/10 text-white placeholder-slate-500 resize-none rounded-xl transition-all duration-300 group-hover:border-slate-500/80"
+                      placeholder="Describe your project requirements, goals, specific features you need, target audience, and any technical preferences..."
                     />
                   </motion.div>
 
-                  {submitStatus && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className={`p-4 rounded-xl flex items-center gap-3 backdrop-blur-sm ${
-                        submitStatus.type === 'success' 
-                          ? 'bg-green-500/20 border border-green-500/30 text-green-400' 
-                          : 'bg-red-500/20 border border-red-500/30 text-red-400'
-                      }`}
-                    >
-                      {submitStatus.type === 'success' ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : (
-                        <AlertCircle className="w-5 h-5" />
-                      )}
-                      <span>{submitStatus.message}</span>
-                    </motion.div>
-                  )}
+                  <AnimatePresence>
+                    {submitStatus && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        className={`p-6 rounded-2xl flex items-center gap-4 backdrop-blur-sm border ${
+                          submitStatus.type === 'success' 
+                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300' 
+                            : 'bg-red-500/15 border-red-500/30 text-red-300'
+                        }`}
+                      >
+                        <motion.div
+                          animate={{ rotate: submitStatus.type === 'success' ? 360 : 0 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          {submitStatus.type === 'success' ? (
+                            <CheckCircle className="w-6 h-6" />
+                          ) : (
+                            <AlertCircle className="w-6 h-6" />
+                          )}
+                        </motion.div>
+                        <span className="font-medium">{submitStatus.message}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -830,17 +966,17 @@ export default function ContactForms() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-4 rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:via-purple-600 hover:to-pink-600 text-white font-semibold py-6 rounded-2xl transition-all duration-300 shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
                     >
                       {isSubmitting ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending...
+                          <span className="text-lg">Sending Request...</span>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
                           <Send className="w-5 h-5" />
-                          Request Quote
+                          <span className="text-lg">Request Quote</span>
                         </div>
                       )}
                     </Button>
@@ -854,83 +990,86 @@ export default function ContactForms() {
 
       {/* Enhanced Contact Information */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8"
       >
         <motion.div 
           className="group relative"
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ duration: 0.3 }}
+          whileHover={{ y: -12, scale: 1.03 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20">
-            {/* Subtle background effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/2 to-cyan-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95 border border-slate-700/50 rounded-3xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-blue-400/60 hover:shadow-2xl hover:shadow-blue-500/20">
+            {/* Enhanced background effects */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
-                rotate: 10,
-                scale: 1.1,
-                transition: { duration: 0.3 }
+                rotate: [0, -5, 5, 0],
+                scale: 1.15,
+                transition: { duration: 0.6 }
               }}
-              className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
+              className="relative w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-black/25"
             >
-              <Mail className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Mail className="w-9 h-9 text-white drop-shadow-lg" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
             </motion.div>
-            <h3 className="text-xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300 mb-3">Email Us</h3>
-            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">faqihulhasnain572@gmail.com</p>
+            <h3 className="text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300 mb-4">Email Us</h3>
+            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300 font-medium">faqihulhasnain572@gmail.com</p>
           </div>
         </motion.div>
         
         <motion.div 
           className="group relative"
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ duration: 0.3 }}
+          whileHover={{ y: -12, scale: 1.03 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-green-500/60 hover:shadow-xl hover:shadow-green-500/20">
-            {/* Subtle background effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/2 to-emerald-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95 border border-slate-700/50 rounded-3xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-emerald-400/60 hover:shadow-2xl hover:shadow-emerald-500/20">
+            {/* Enhanced background effects */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.08),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
-                rotate: 10,
-                scale: 1.1,
-                transition: { duration: 0.3 }
+                rotate: [0, 10, -10, 0],
+                scale: 1.15,
+                transition: { duration: 0.6 }
               }}
-              className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
+              className="relative w-20 h-20 bg-gradient-to-br from-emerald-500 via-emerald-600 to-green-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-black/25"
             >
-              <Phone className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Phone className="w-9 h-9 text-white drop-shadow-lg" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-green-400/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
             </motion.div>
-            <h3 className="text-xl font-bold text-white group-hover:text-green-100 transition-colors duration-300 mb-3">Call Us</h3>
-            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">+1 (405) 200-4589</p>
+            <h3 className="text-2xl font-bold text-white group-hover:text-emerald-100 transition-colors duration-300 mb-4">Call Us</h3>
+            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300 font-medium">+1 (405) 200-4589</p>
           </div>
         </motion.div>
         
         <motion.div 
           className="group relative"
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ duration: 0.3 }}
+          whileHover={{ y: -12, scale: 1.03 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/40 rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-purple-500/60 hover:shadow-xl hover:shadow-purple-500/20">
-            {/* Subtle background effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/2 to-pink-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-slate-900/95 border border-slate-700/50 rounded-3xl p-8 text-center overflow-hidden transition-all duration-500 hover:border-purple-400/60 hover:shadow-2xl hover:shadow-purple-500/20">
+            {/* Enhanced background effects */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.08),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <motion.div
               whileHover={{ 
-                rotate: 10,
-                scale: 1.1,
-                transition: { duration: 0.3 }
+                rotate: [0, 15, -15, 0],
+                scale: 1.15,
+                transition: { duration: 0.6 }
               }}
-              className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20"
+              className="relative w-20 h-20 bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-black/25"
             >
-              <MapPin className="w-8 h-8 text-white drop-shadow-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <MapPin className="w-9 h-9 text-white drop-shadow-lg" />
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
             </motion.div>
-            <h3 className="text-xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300 mb-3">Visit Us</h3>
-            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">San Francisco, CA</p>
+            <h3 className="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300 mb-4">Visit Us</h3>
+            <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300 font-medium">San Francisco, CA</p>
           </div>
         </motion.div>
       </motion.div>

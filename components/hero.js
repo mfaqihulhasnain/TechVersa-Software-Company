@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Play, Sparkles, Zap, Globe, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { createOptimizedScrollHandler, prefersReducedMotion } from "@/lib/performance";
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -13,14 +14,18 @@ const Hero = () => {
   const textY = useTransform(scrollY, [0, 500], [0, 100]);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    // Skip mouse tracking if user prefers reduced motion
+    if (prefersReducedMotion()) return;
+
+    // Optimized mouse tracking with throttling (32ms = 30fps for smoother performance)
+    const handleMouseMove = createOptimizedScrollHandler((e) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
       });
-    };
+    }, 32);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -131,38 +136,20 @@ const Hero = () => {
           </motion.div>
         ))}
 
-        {/* Enhanced Particles */}
+        {/* Optimized Particles - Reduced from 28 to 12 for better performance */}
         {[
-          { left: 26.6, top: 51.5, hue: 225, duration: 3.2, delay: 0.1 },
-          { left: 96.3, top: 29.7, hue: 121, duration: 4.1, delay: 0.8 },
-          { left: 17.9, top: 27.8, hue: 1, duration: 3.7, delay: 1.2 },
-          { left: 62.7, top: 95.4, hue: 117, duration: 4.3, delay: 0.3 },
-          { left: 78.4, top: 89.6, hue: 203, duration: 3.9, delay: 1.5 },
-          { left: 29.0, top: 85.4, hue: 194, duration: 4.0, delay: 0.6 },
-          { left: 33.2, top: 84.9, hue: 289, duration: 3.5, delay: 1.1 },
-          { left: 96.5, top: 28.3, hue: 279, duration: 4.2, delay: 0.4 },
-          { left: 40.9, top: 43.7, hue: 85, duration: 3.8, delay: 1.3 },
-          { left: 89.6, top: 24.4, hue: 354, duration: 3.6, delay: 0.9 },
-          { left: 67.9, top: 95.0, hue: 250, duration: 4.4, delay: 0.2 },
-          { left: 7.0, top: 49.5, hue: 165, duration: 3.3, delay: 1.4 },
-          { left: 93.3, top: 7.9, hue: 93, duration: 4.1, delay: 0.7 },
-          { left: 42.2, top: 12.9, hue: 317, duration: 3.4, delay: 1.0 },
-          { left: 9.3, top: 9.2, hue: 240, duration: 3.9, delay: 0.5 },
-          { left: 47.0, top: 43.5, hue: 337, duration: 4.0, delay: 1.2 },
-          { left: 24.9, top: 89.9, hue: 4, duration: 3.7, delay: 0.8 },
-          { left: 66.3, top: 67.0, hue: 267, duration: 4.2, delay: 0.3 },
-          { left: 0.6, top: 3.1, hue: 333, duration: 3.5, delay: 1.1 },
-          { left: 72.9, top: 42.7, hue: 296, duration: 3.8, delay: 0.6 },
-          { left: 2.5, top: 18.2, hue: 96, duration: 4.3, delay: 0.9 },
-          { left: 36.0, top: 58.4, hue: 304, duration: 3.6, delay: 1.3 },
-          { left: 24.9, top: 85.9, hue: 132, duration: 4.1, delay: 0.4 },
-          { left: 34.4, top: 25.7, hue: 120, duration: 3.9, delay: 1.0 },
-          { left: 49.5, top: 14.1, hue: 128, duration: 3.4, delay: 0.7 },
-          { left: 72.9, top: 61.7, hue: 9, duration: 4.0, delay: 1.2 },
-          { left: 62.9, top: 13.1, hue: 28, duration: 3.7, delay: 0.5 },
-          { left: 67.7, top: 43.7, hue: 173, duration: 4.2, delay: 0.8 },
-          { left: 98.1, top: 86.7, hue: 272, duration: 3.8, delay: 1.1 },
-          { left: 91.1, top: 48.3, hue: 255, duration: 3.5, delay: 0.6 }
+          { left: 26.6, top: 51.5, hue: 225, duration: 4.0, delay: 0.1 },
+          { left: 96.3, top: 29.7, hue: 121, duration: 5.0, delay: 0.8 },
+          { left: 17.9, top: 27.8, hue: 1, duration: 4.5, delay: 1.2 },
+          { left: 62.7, top: 95.4, hue: 117, duration: 5.5, delay: 0.3 },
+          { left: 78.4, top: 89.6, hue: 203, duration: 4.8, delay: 1.5 },
+          { left: 29.0, top: 85.4, hue: 194, duration: 5.2, delay: 0.6 },
+          { left: 33.2, top: 84.9, hue: 289, duration: 4.3, delay: 1.1 },
+          { left: 96.5, top: 28.3, hue: 279, duration: 5.8, delay: 0.4 },
+          { left: 40.9, top: 43.7, hue: 85, duration: 4.6, delay: 1.3 },
+          { left: 89.6, top: 24.4, hue: 354, duration: 4.4, delay: 0.9 },
+          { left: 67.9, top: 95.0, hue: 250, duration: 5.2, delay: 0.2 },
+          { left: 7.0, top: 49.5, hue: 165, duration: 4.1, delay: 1.4 }
         ].map((particle, i) => (
           <motion.div
             key={i}
@@ -173,14 +160,15 @@ const Hero = () => {
               background: `hsl(${particle.hue}, 70%, 60%)`,
             }}
             animate={{
-              y: [0, -30, 0],
-              opacity: [0, 1, 0],
+              y: [0, -25, 0],
+              opacity: [0, 0.8, 0],
               scale: [0.5, 1, 0.5],
             }}
             transition={{
               duration: particle.duration,
               repeat: Infinity,
               delay: particle.delay,
+              ease: "easeInOut"
             }}
           />
         ))}
@@ -347,23 +335,23 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      {/* Ambient Glow Effects */}
+      {/* Optimized Ambient Glow Effects - Slower animations for better performance */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
           className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{ duration: 8, repeat: Infinity }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"
           animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.6, 0.3, 0.6],
+            scale: [1.1, 1, 1.1],
+            opacity: [0.5, 0.3, 0.5],
           }}
-          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+          transition={{ duration: 15, repeat: Infinity, delay: 3, ease: "easeInOut" }}
         />
       </div>
     </section>

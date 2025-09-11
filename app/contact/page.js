@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import ContactForms from "@/components/contact-forms";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { createOptimizedScrollHandler, prefersReducedMotion } from "@/lib/performance";
 
 export default function ContactPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -16,14 +17,18 @@ export default function ContactPage() {
   const textY = useTransform(scrollY, [0, 500], [0, 100]);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    // Skip mouse tracking if user prefers reduced motion
+    if (prefersReducedMotion()) return;
+
+    // Optimized mouse tracking with throttling (32ms = 30fps for smoother performance)
+    const handleMouseMove = createOptimizedScrollHandler((e) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
       });
-    };
+    }, 32);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 

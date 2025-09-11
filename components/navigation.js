@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createOptimizedScrollHandler, createOptimizedResizeHandler, prefersReducedMotion } from "@/lib/performance";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,22 +13,24 @@ const Navigation = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    // Optimized scroll handler with throttling (16ms = 60fps)
+    const handleScroll = createOptimizedScrollHandler(() => {
       setIsScrolled(window.scrollY > 50);
-    };
+    }, 16);
 
-    const handleResize = () => {
+    // Optimized resize handler with debouncing (250ms)
+    const handleResize = createOptimizedResizeHandler(() => {
       // Handle mobile browser UI changes
       if (isOpen) {
         // Recalculate mobile menu height when viewport changes
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       }
-    };
+    }, 250);
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("orientationchange", handleResize, { passive: true });
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
